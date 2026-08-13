@@ -523,7 +523,6 @@ const LINKS = {
   city:     {a:"Midnight City", b:"Explore the ecosystem, mapped as a city", url:"https://midnight.city/"},
   mips:     {a:"Improvement proposals (MIPs)", b:"Shape the protocol via the MIP process", url:"https://midnight.network/blog/improvement-proposal-process"},
   hackathon:{a:"Hackathons", b:"Build fast, win prizes, ship with a cohort", url:"https://midnight.network/hackathon"},
-  kapaMcp:  {a:"Kapa MCP (docs-grounded AI)", b:"Ask AI grounded in the Midnight docs", url:"https://midnight.mcp.kapa.ai", tag:"official"},
   learnCompact:{a:"Learn Compact", b:"A guided Compact learning repo", url:"https://github.com/Olanetsoft/learn-compact", tag:"community"},
   compactByExample:{a:"Compact By Example", b:"Learn Compact through small examples", url:"https://github.com/Olanetsoft/compact-by-example", tag:"community"},
   meshMidnight:{a:"Mesh Midnight", b:"MeshJS tooling & starters for Midnight", url:"https://midnight.meshjs.dev/", tag:"community"},
@@ -560,7 +559,7 @@ const STAGE = {
   contrib:"grow", awesome:"grow", city:"grow", mips:"grow", hackathon:"grow",
   ideaboard:"learn",
   // batch 2
-  nightpaper:"learn", kachina:"learn", tokenomics:"learn", kapaMcp:"learn", learnCompact:"learn", compactByExample:"learn",
+  nightpaper:"learn", kachina:"learn", tokenomics:"learn", learnCompact:"learn", compactByExample:"learn",
   vscodeExtension:"build", proofServer:"build", testingGuide:"build", supportMatrix:"build", nodeOperators:"build",
   fixVersions:"build", compilerErrors:"build", nodeErrorCodes:"build", meshMidnight:"build", compactLsp:"build", midnightDoctor:"build",
   acquireTokens:"ship", subscanExplorer:"ship", explorer1am:"ship",
@@ -611,7 +610,7 @@ const DIMENSIONS = [
 const BEGINNER = {
   id:"new", ic:"sprout", ttl:"Start here: your first win on Midnight",
   blurb:"Understand what Midnight is, get the toolchain running, then ship a Hello World and a first dApp. Everything below is free and open, with no gate on learning.",
-  links: P("whatIs","academy","learnCompact","compactByExample","kapaMcp","playground","install","hello","acquireTokens"),
+  links: P("whatIs","academy","learnCompact","compactByExample","playground","install","hello","acquireTokens"),
   leads: ["academy","zealy","devhang"],
 };
 
@@ -794,7 +793,7 @@ const srcLabel = (url) => {
   } catch(e){ return "Site"; }
 };
 // who maintains it: explicit tag wins, else derive from host. Official gets no pill.
-const OFFICIAL_HOSTS = ["docs.midnight.network","midnight.network","academy.midnight.network","faucet.preprod.midnight.network","preprod.midnightexplorer.com","forum.midnight.network","zealy.io","midnight.foundation","midnight.mcp.kapa.ai","effectstream.github.io","x.com","t.me"];
+const OFFICIAL_HOSTS = ["docs.midnight.network","midnight.network","academy.midnight.network","faucet.preprod.midnight.network","preprod.midnightexplorer.com","forum.midnight.network","zealy.io","midnight.foundation","effectstream.github.io","x.com","t.me"];
 const sourceTag = (l) => {
   if(l.tag) return l.tag;
   try {
