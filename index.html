@@ -74,11 +74,11 @@
   .finder-head .sub{margin-left:auto}
   .grid-opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;padding:20px 24px}
   .opt{position:relative;text-align:left;padding:14px 15px;border:1px solid var(--border);border-radius:var(--r);background:var(--bg-soft);transition:transform .18s var(--ease),box-shadow .18s var(--ease),border-color .18s var(--ease);display:flex;gap:13px;align-items:center}
-  .opt:hover{border-color:var(--blue-2);transform:translateY(-2px)}
-  .opt.sel{border-color:var(--blue-2);background:linear-gradient(180deg,var(--callout),var(--bg-soft));box-shadow:0 0 0 3px rgba(44,44,255,.18)}
+  .opt:hover{border-color:var(--blue);transform:translateY(-2px)}
+  .opt.sel{border-color:var(--blue);background:linear-gradient(180deg,var(--callout),var(--bg-soft));box-shadow:0 0 0 3px rgba(44,44,255,.18)}
   .opt .ic,.card .ic,.rc-head .ic{display:grid;place-items:center;flex:none;color:var(--blue-2);background:var(--callout);border:1px solid var(--border-2);border-radius:8px}
   .opt .ic{width:40px;height:40px}
-  .opt.sel .ic{background:var(--blue);color:#fff;border-color:var(--blue-2)}
+  .opt.sel .ic{background:var(--blue);color:#fff;border-color:var(--blue)}
   .opt .ttl{font-weight:600;font-size:15px;margin-bottom:1px;letter-spacing:-.01em}
   .opt .ds{font-size:12.5px;color:var(--dim);line-height:1.4}
   .lnk{background:none;border:none;color:var(--dim);font-weight:600;font-size:13.5px;cursor:pointer;padding:0;font-family:inherit}
@@ -215,10 +215,36 @@
   @media(max-width:880px){.hero-grid{grid-template-columns:1fr}.hero-art{display:none}}
   .hero-copy{max-width:600px}
   h1.big{margin:0 0 20px}
-  .askai{margin-top:28px;display:flex;align-items:center;gap:11px;width:100%;max-width:460px;background:var(--bg-soft);border:1px solid var(--border-2);border-radius:10px;padding:14px 16px;color:var(--dim);text-decoration:none;font-size:14.5px;transition:.16s var(--ease)}
-  .askai svg{color:var(--blue-2);flex:none}
-  .askai .askai-key{margin-left:auto;color:var(--faint);font-family:var(--mono);font-size:13px}
-  .askai:hover{border-color:var(--blue-2);color:var(--ink)}
+  /* Hero idea/search bar (marketing) — entry point to the idea shaper */
+  .askai{margin-top:28px;display:flex;align-items:center;gap:10px;width:100%;max-width:540px;background:var(--bg-soft);border:1px solid var(--border-2);border-radius:11px;padding:6px 6px 6px 15px;transition:border-color .16s var(--ease),box-shadow .16s var(--ease)}
+  .askai>svg{color:var(--violet);flex:none}
+  .askai:focus-within{border-color:var(--violet);box-shadow:0 0 0 3px rgba(139,92,246,.18)}
+  .askai-input{flex:1;min-width:0;background:transparent;border:none;color:var(--ink);font-family:inherit;font-size:14.5px;padding:9px 0}
+  .askai-input:focus{outline:none}
+  .askai-input::placeholder{color:var(--faint)}
+  .askai-go{display:inline-flex;align-items:center;gap:6px;background:var(--violet);color:#fff;border-radius:8px;padding:9px 14px;font-weight:600;font-size:13.5px;white-space:nowrap;transition:filter .15s var(--ease)}
+  .askai-go svg{color:#fff}
+  .askai-go:hover{filter:brightness(1.12)}
+
+  /* Idea shaper */
+  .shaper{border:1px solid var(--border);border-left:2px solid var(--violet);border-radius:12px;background:color-mix(in srgb,var(--violet) 6%,var(--card));padding:22px;animation:rise .3s var(--ease)}
+  .shaper-head{display:flex;align-items:center;gap:10px;font-size:16.5px;font-weight:600;letter-spacing:-.01em;margin-bottom:18px}
+  .shaper-head .dims-step{background:var(--violet)}
+  .shaper-field{display:block;margin-bottom:18px}
+  .shaper-lbl,.shaper-q{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:9px}
+  .shaper-q{margin-top:18px}
+  .shaper-input{width:100%;background:var(--bg-soft);border:1px solid var(--border-2);border-radius:9px;padding:13px 14px;color:var(--ink);font-family:inherit;font-size:15px}
+  .shaper-input:focus{outline:none;border-color:var(--violet);box-shadow:0 0 0 3px rgba(139,92,246,.18)}
+  .shaper-input::placeholder{color:var(--faint)}
+  .chiprow{display:flex;flex-wrap:wrap;gap:8px}
+  .schip{border:1px solid var(--border);background:var(--bg-soft);color:var(--dim);border-radius:8px;padding:9px 14px;font-size:13.5px;font-weight:600;cursor:pointer;transition:.15s var(--ease)}
+  .schip:hover{color:var(--ink);border-color:var(--violet)}
+  .schip.on{background:var(--violet);border-color:var(--violet);color:#fff}
+  .shaper-go{margin-top:20px;display:inline-flex;align-items:center;gap:8px;background:var(--violet);color:#fff;border-radius:8px;padding:12px 18px;font-weight:600;font-size:14.5px;transition:filter .15s var(--ease)}
+  .shaper-go svg{color:#fff}
+  .shaper-go:hover{filter:brightness(1.12)}
+  .shaper-go:disabled{opacity:.6;cursor:default}
+  .shaper .result{padding:22px 0 0}
   .hero-art{display:grid;place-items:center}
   .xart{width:100%;max-width:320px;height:auto;filter:drop-shadow(0 0 26px color-mix(in srgb,var(--accent) 45%,transparent));animation:floaty 9s ease-in-out infinite}
   @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
@@ -230,7 +256,7 @@
   @media(max-width:900px){.pills{grid-template-columns:repeat(3,1fr)}}
   @media(max-width:560px){.pills{grid-template-columns:repeat(2,1fr)}}
   .pill{position:relative;text-align:left;border:1px solid var(--border);border-radius:10px;background:var(--card);padding:16px 15px;cursor:pointer;transition:transform .18s var(--ease),border-color .18s var(--ease),box-shadow .18s var(--ease);color:var(--ink)}
-  .pill:hover{border-color:var(--blue-2);transform:translateY(-2px)}
+  .pill:hover{border-color:var(--blue);transform:translateY(-2px)}
   .pill-ic{display:grid;place-items:center;width:32px;height:32px;border-radius:8px;background:var(--callout);border:1px solid var(--border-2);color:var(--blue-2);margin-bottom:12px}
   .pill-tt{display:block;font-weight:600;font-size:14.5px;letter-spacing:-.01em}
   .pill-ds{display:block;font-size:12px;color:var(--dim);margin-top:3px;line-height:1.35}
@@ -246,21 +272,21 @@
   .dims-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
   @media(max-width:640px){.dims-row{grid-template-columns:1fr}}
   .dim{display:flex;align-items:center;gap:11px;text-align:left;border:1px solid var(--border-2);background:var(--bg-soft);color:var(--ink);border-radius:9px;padding:13px 14px;cursor:pointer;transition:transform .15s var(--ease),border-color .15s var(--ease)}
-  .dim:hover{border-color:var(--blue-2);transform:translateY(-2px)}
+  .dim:hover{border-color:var(--blue);transform:translateY(-2px)}
   .dim-ic{display:grid;place-items:center;width:34px;height:34px;border-radius:8px;background:var(--callout);border:1px solid var(--border-2);color:var(--blue-2);flex:none}
   .dim-tt{display:block;font-weight:600;font-size:14px;letter-spacing:-.01em}
   .dim-ds{display:block;font-size:11.5px;color:var(--dim);margin-top:1px;line-height:1.3}
-  .dim.on{border-color:var(--blue-2);background:color-mix(in srgb,var(--blue) 16%,var(--bg-soft));box-shadow:0 0 0 2px rgba(44,44,255,.3)}
-  .dim.on .dim-ic{background:var(--blue);color:#fff;border-color:var(--blue-2)}
+  .dim.on{border-color:var(--blue);background:color-mix(in srgb,var(--blue) 16%,var(--bg-soft));box-shadow:0 0 0 2px rgba(44,44,255,.3)}
+  .dim.on .dim-ic{background:var(--blue);color:#fff;border-color:var(--blue)}
 
   /* Second-level options */
   .opt-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:14px}
   .opt2{display:flex;align-items:center;gap:12px;text-align:left;border:1px solid var(--border);background:var(--card);border-radius:9px;padding:12px 14px;cursor:pointer;transition:transform .16s var(--ease),border-color .16s var(--ease);color:var(--ink)}
-  .opt2:hover{border-color:var(--blue-2);transform:translateY(-2px)}
+  .opt2:hover{border-color:var(--blue);transform:translateY(-2px)}
   .opt2 .ic{display:grid;place-items:center;width:36px;height:36px;border-radius:8px;background:var(--callout);border:1px solid var(--border-2);color:var(--blue-2);flex:none}
   .opt2 .ttl{font-weight:600;font-size:14px;letter-spacing:-.01em}
-  .opt2.sel{border-color:var(--blue-2);background:linear-gradient(180deg,var(--callout),var(--card));box-shadow:0 0 0 3px rgba(44,44,255,.18)}
-  .opt2.sel .ic{background:var(--blue);color:#fff;border-color:var(--blue-2)}
+  .opt2.sel{border-color:var(--blue);background:linear-gradient(180deg,var(--callout),var(--card));box-shadow:0 0 0 3px rgba(44,44,255,.18)}
+  .opt2.sel .ic{background:var(--blue);color:#fff;border-color:var(--blue)}
   .journey .result{padding:22px 0 0}
 </style>
 </head>
@@ -540,7 +566,7 @@ const ACCENTS = {
   xrp:"#12b6c9", student:"#0d1dff", new:"#0d1dff", funding:"#12b56b",
   ai:"#7c3aed", defi:"#0ea5e9", identity:"#0d1dff", healthcare:"#e5484d",
   supplychain:"#c2620f", gaming:"#d6409f", governance:"#3358e0", nfts:"#d6409f",
-  ip:"#c026d3", rwa:"#0f9d6e", experience:"#2C2CFF", deeper:"#8b5cf6", node:"#12b6c9",
+  ip:"#c026d3", rwa:"#0f9d6e", experience:"#2C2CFF", deeper:"#8b5cf6", node:"#12b6c9", idea:"#8b5cf6",
   smartcontract:"#0d1dff", frontend:"#8b5cf6", mobile:"#0ea5e9",
   fullstack:"#0d1dff", security:"#0f9d6e", founder:"#f7931a", content:"#d6409f",
 };
@@ -570,6 +596,28 @@ const DIMENSIONS = [
   {id:"ecosystem", ic:"blocks",   ttl:"By ecosystem", ds:"Ethereum, Cardano, Solana, Bitcoin, XRP"},
   {id:"industry",  ic:"building", ttl:"By industry",  ds:"AI, DeFi, identity, gaming, IP, RWA…"},
   {id:"role",      ic:"user",     ttl:"By role",      ds:"Contract, front-end, mobile, security…"},
+];
+
+/* ---- Idea shaper: turn a person's own idea into a custom path ----
+   Fully client-side. Maps their answers to resources from the SAME registry,
+   then renders through ResultCard/DetailBody so structure + refs match. */
+const IDEA_DOMAINS = [
+  ["ai","AI & agents"],["defi","DeFi & payments"],["identity","Identity"],["healthcare","Healthcare"],
+  ["gaming","Gaming"],["governance","Governance & DAOs"],["nfts","NFTs"],["ip","IP & creators"],
+  ["rwa","Real-world assets"],["supplychain","Supply chain"],
+];
+// each privacy angle explains the Midnight fit and pulls in the most specific resources
+const PRIVACY = {
+  identity: {label:"who's involved",            why:"you need to prove who someone is — or that they're eligible — without revealing their identity", keys:["midnames","exZkloan","disclosure"]},
+  amounts:  {label:"amounts & balances",        why:"you need to move or compare value without exposing balances",                                    keys:["exToken","statera"]},
+  docs:     {label:"documents & credentials",   why:"you need to verify signed real-world data without publishing it on-chain",                        keys:["attest","exZkloan"]},
+  model:    {label:"a model or dataset",        why:"you need to prove a computation ran on data without exposing the data or the model",             keys:["effectAi","oneAM"]},
+  bids:     {label:"bids, votes or moves",      why:"you need sealed inputs that stay hidden until reveal",                                            keys:["sealedbid","exElection"]},
+  ownership:{label:"ownership & membership",    why:"you need to prove ownership or membership without doxxing a wallet",                              keys:["exKitties","oz"]},
+};
+const IDEA_PRIVACY = [
+  ["identity","People / identity"],["amounts","Amounts / balances"],["docs","Documents / credentials"],
+  ["model","AI model / data"],["bids","Bids / votes / moves"],["ownership","Ownership / membership"],
 ];
 
 /* ---- Result / detail content ---- */
@@ -920,6 +968,75 @@ function PathFinder(){
   );
 }
 
+/* Assemble a personalized path object from the registry — same shape every
+   ResultCard uses, so formatting/structure/references are inherited. */
+function localIdeate({text, domain, privacy}){
+  const idea = (text||"").trim();
+  const name = idea ? (idea.length>64 ? idea.slice(0,62)+"…" : idea) : "your idea";
+  const base = INDUSTRIES[domain];
+  const pv = PRIVACY[privacy];
+  const why = pv ? pv.why : "it needs to prove things are true without exposing the data behind them";
+  const blurb = `“${name}” fits Midnight because ${why}. Here's a build path shaped to it — learn the model, fork the closest example, keep the private parts private, then ship a deployed proof.`;
+  const ucBase = base ? base.uc.slice(0,3) : ["Prove a claim without revealing the data","Add selective disclosure","Ship a deployed dApp with a live URL"];
+  const uc = [
+    "Prototype it as a Compact contract",
+    pv ? `Keep ${pv.label} private with ZK proofs` : "Keep the sensitive parts private with ZK proofs",
+    ...ucBase,
+  ].slice(0,5);
+  const tools = base ? base.tools : "Compact · Midnight.js · EffectStream · attestation API";
+  const baseKeys = base ? base.links.map(l=>l.key) : ["writing","exBboard","midjs","examples"];
+  const order = ["writing", ...(pv?pv.keys:[]), ...baseKeys, "faucet", "explorer"];
+  const seen = new Set();
+  const keys = order.filter(k => LINKS[k] && !seen.has(k) && seen.add(k)).slice(0,8);
+  return {id:"idea", ic:"sparkle", ttl:`Build “${name}”`, blurb, uc, tools, links:P(...keys), leads:["academy","buildclub","nightsky"]};
+}
+
+/* Seam: leave null for a fully client-side, zero-cost build. Point it at an AI
+   endpoint later (must return the same {ic,ttl,blurb,uc,tools,links,leads} shape,
+   with links as [{a,b,url,key,stage}]) to make ideation generative — no UI change. */
+const IDEA_AI_ENDPOINT = null;
+async function ideate(input){
+  if(IDEA_AI_ENDPOINT){
+    try{
+      const res = await fetch(IDEA_AI_ENDPOINT, {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(input)});
+      if(res.ok){ const j = await res.json(); if(j && Array.isArray(j.links)) return j; }
+    }catch(e){ /* fall through to client-side */ }
+  }
+  return localIdeate(input);
+}
+
+function IdeaShaper({seed}){
+  const [text,setText]     = useState(seed||"");
+  const [domain,setDomain] = useState(null);
+  const [privacy,setPriv]  = useState(null);
+  const [result,setResult] = useState(null);
+  const [busy,setBusy]     = useState(false);
+  const setAccent = React.useContext(AccentCtx);
+  useEffect(()=>{ setAccent(ACCENTS.idea); }, []);
+  useEffect(()=>{ setText(seed||""); setResult(null); }, [seed]);
+  const build = async ()=>{ setBusy(true); const r = await ideate({text, domain, privacy}); setResult(r); setBusy(false); };
+  return (
+    <div className="shaper">
+      <div className="shaper-head"><span className="dims-step">Shape</span> Turn your idea into a build path.</div>
+      <label className="shaper-field">
+        <span className="shaper-lbl">Your idea</span>
+        <input className="shaper-input" value={text} onChange={e=>setText(e.target.value)}
+          placeholder="e.g. a ticketing app where resale can't be tracked" />
+      </label>
+      <div className="shaper-q">Which space is it in?</div>
+      <div className="chiprow">{IDEA_DOMAINS.map(([id,lbl])=>(
+        <button key={id} className={"schip btn"+(domain===id?" on":"")} onClick={()=>setDomain(id===domain?null:id)}>{lbl}</button>
+      ))}</div>
+      <div className="shaper-q">What must stay private?</div>
+      <div className="chiprow">{IDEA_PRIVACY.map(([id,lbl])=>(
+        <button key={id} className={"schip btn"+(privacy===id?" on":"")} onClick={()=>setPriv(id===privacy?null:id)}>{lbl}</button>
+      ))}</div>
+      <button className="shaper-go btn" onClick={build} disabled={busy}>{busy?"Shaping…":"Build my path"} <Icon name="arrowRight" size={16} /></button>
+      {result && <ResultCard d={result} />}
+    </div>
+  );
+}
+
 function Modal({d,onClose}){
   useEffect(()=>{
     const h=(e)=>{if(e.key==="Escape")onClose();};
@@ -1031,7 +1148,9 @@ function XArt(){
 
 function App(){
   const [accent,setAccent] = useState(null);
+  const [ideaSeed,setIdeaSeed] = useState(null);
   useEffect(()=>{ document.documentElement.style.setProperty("--accent", accent||DEFAULT_ACCENT); },[accent]);
+  const shapeIdea = (v)=>{ setIdeaSeed(v); setTimeout(()=>{ const el=document.getElementById("shape"); if(el) el.scrollIntoView({behavior:"smooth",block:"start"}); },60); };
   return (
     <AccentCtx.Provider value={setAccent}>
       <Backdrop accent={accent} />
@@ -1066,10 +1185,21 @@ function App(){
           <div className="hero-copy">
             <h1 className="big">Developer Hub</h1>
             <p className="lede">Everything you need to engineer privacy on Midnight — from your first line of code to production. Tell us where you are, and we'll hand you the exact repos, docs, and programs for your path.</p>
+            <form className="askai" onSubmit={e=>{ e.preventDefault(); const v=e.target.q.value.trim(); if(v) shapeIdea(v); }}>
+              <Icon name="sparkle" size={17} />
+              <input name="q" className="askai-input" placeholder="Have an idea? Describe what you want to build…" aria-label="Describe your idea" />
+              <button type="submit" className="askai-go btn">Shape it <Icon name="arrowRight" size={14} /></button>
+            </form>
           </div>
           <div className="hero-art"><XArt /></div>
         </div>
       </section>
+
+      {ideaSeed!==null && (
+        <section className="blk" id="shape" style={{paddingTop:16,paddingBottom:0}}>
+          <div className="wrap"><IdeaShaper seed={ideaSeed} /></div>
+        </section>
+      )}
 
       <section className="blk journey-sec" id="finder" style={{paddingTop:14}}>
         <div className="wrap">
