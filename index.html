@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Midnight Developer Hub — Find your path</title>
+<title>Midnight Developer Hub · Find your path</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
@@ -97,7 +97,7 @@
   .rc-sub{font-family:var(--mono);font-size:11px;font-weight:400;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin:0 0 13px}
   @media(max-width:620px){.grid-opts{padding:16px}.rc-body,.rc-head{padding-left:18px;padding-right:18px}}
 
-  /* Detail page — "you already know this" */
+  /* Detail page: "you already know this" */
   .know{background:color-mix(in srgb,var(--accent) 8%,var(--card));border:1px solid color-mix(in srgb,var(--accent) 26%,var(--border));border-radius:var(--r);padding:14px 16px;margin-bottom:20px}
   .know-lbl{display:block;font-family:var(--mono);font-size:10.5px;font-weight:400;letter-spacing:.12em;text-transform:uppercase;color:var(--blue-2);margin-bottom:10px}
   .know-pairs{display:flex;flex-wrap:wrap;gap:8px}
@@ -106,7 +106,7 @@
   .pair b{font-weight:600}
   .pair svg{color:var(--accent);flex:none}
 
-  /* Detail page — use cases */
+  /* Detail page: use cases */
   .dsec{margin-bottom:22px}
   .dsec:last-child{margin-bottom:0}
   .stage-head{display:flex;align-items:center;gap:9px;color:var(--ink)}
@@ -116,7 +116,7 @@
   .uc-card{display:flex;gap:10px;align-items:flex-start;background:var(--bg-soft);border:1px solid var(--border);border-radius:8px;padding:11px 13px;font-size:13.5px;line-height:1.35}
   .uc-tick{width:19px;height:19px;border-radius:5px;background:color-mix(in srgb,var(--accent) 28%,transparent);color:#fff;display:grid;place-items:center;flex:none;margin-top:1px}
 
-  /* Detail page — tooling panel */
+  /* Detail page: tooling panel */
   .toolpanel{display:flex;gap:13px;align-items:flex-start;background:color-mix(in srgb,var(--accent) 8%,var(--card));border:1px solid color-mix(in srgb,var(--accent) 24%,var(--border));border-radius:var(--r);padding:14px 16px;margin-bottom:22px}
   .toolpanel .tp-ic{width:34px;height:34px;border-radius:8px;background:var(--bg);border:1px solid var(--border-2);color:var(--accent);display:grid;place-items:center;flex:none}
   .tp-lbl{display:block;font-family:var(--mono);font-size:10.5px;font-weight:400;letter-spacing:.12em;text-transform:uppercase;color:var(--blue-2);margin-bottom:3px}
@@ -130,6 +130,9 @@
   .rlink .a{font-weight:600;font-size:14.5px;letter-spacing:-.01em;display:flex;align-items:center;flex-wrap:wrap;gap:2px}
   .rlink .b{font-size:12.5px;color:var(--dim);margin-top:2px}
   .src{margin-left:6px;font-family:var(--mono);font-size:9px;font-weight:400;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);background:var(--label);border:1px solid var(--border-2);border-radius:4px;padding:1px 6px}
+  .tagpill{margin-left:6px;font-family:var(--mono);font-size:8.5px;font-weight:400;letter-spacing:.05em;text-transform:uppercase;border-radius:4px;padding:1px 6px;border:1px solid}
+  .tp-com{color:#e0a852;border-color:rgba(224,168,82,.32);background:rgba(224,168,82,.1)}
+  .tp-partner{color:#b79bff;border-color:rgba(139,92,246,.32);background:rgba(139,92,246,.12)}
   .rlink .arw{margin-left:auto;color:var(--faint);flex:none;transition:.16s var(--ease)}
   .rlink:hover .arw{color:var(--accent);transform:translateX(2px)}
 
@@ -209,7 +212,7 @@
   .foot-bottom{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center;margin-top:38px;padding-top:20px;border-top:1px solid var(--border);font-size:12px;color:var(--faint)}
   .foot-note{max-width:560px}
 
-  /* Hero — left-aligned, with Ask-AI bar + X line-art (design-team layout) */
+  /* Hero: left-aligned, with Ask-AI bar + X line-art (design-team layout) */
   .hero{text-align:left}
   .hero-grid{display:grid;grid-template-columns:1.12fr .88fr;gap:36px;align-items:center}
   @media(max-width:880px){.hero-grid{grid-template-columns:1fr}.hero-art{display:none}}
@@ -271,7 +274,7 @@ const { useState, useEffect } = React;
 
 /* ---------------- ICONS ----------------
    A single cohesive line-icon set (24px grid, 1.7 stroke) plus a few
-   monochrome brand marks. No emoji anywhere — every glyph is a real SVG. */
+   monochrome brand marks. No emoji anywhere: every glyph is a real SVG. */
 const ICONS = {
   sprout:(<><path d="M7 20h10"/><path d="M12 20v-9"/><path d="M12 13C12 10 9.7 8 6.5 8 6.5 11 8.8 13 12 13Z"/><path d="M12 11c0-3 2.3-5 5.5-5 0 3-2.3 5-5.5 5Z"/></>),
   blocks:(<><rect x="4" y="10" width="10" height="10" rx="1.6"/><path d="M10 10V6a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-4"/></>),
@@ -312,6 +315,7 @@ const ICONS = {
   github:(<><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.9a3.4 3.4 0 0 0-.9-2.6c3-.3 6.2-1.5 6.2-6.7A5.2 5.2 0 0 0 20 5.8 4.9 4.9 0 0 0 19.9 2s-1.2-.3-3.9 1.5a13.4 13.4 0 0 0-7 0C6.3 1.7 5.1 2 5.1 2A4.9 4.9 0 0 0 5 5.8a5.2 5.2 0 0 0-1.4 3.6c0 5.2 3.1 6.4 6.1 6.7A3.4 3.4 0 0 0 9 18.7V22"/></>),
   discord:(<><circle cx="9" cy="12" r="1"/><circle cx="15" cy="12" r="1"/><path d="M7.5 7.8A15 15 0 0 1 12 7a15 15 0 0 1 4.5.8c1.6 2.2 2.4 4.9 2.5 8.2a12 12 0 0 1-3.6 1.8l-.8-1.4a9 9 0 0 1-5.2 0L8.6 17.8A12 12 0 0 1 5 16c.1-3.3.9-6 2.5-8.2Z"/></>),
   youtube:(<><rect x="3" y="6" width="18" height="12" rx="4"/><path d="M10.5 9.5 15 12l-4.5 2.5Z"/></>),
+  telegram:(<><path d="M21.6 4.3 2.9 11.2c-.9.3-.9 1.6.1 1.9l4.6 1.4 1.7 5.3c.2.6 1 .8 1.5.3l2.6-2.4 4.5 3.3c.6.4 1.4.1 1.6-.6L23 5.4c.2-.8-.6-1.4-1.4-1.1Z"/><path d="m7.6 14.5 9.4-6.8-6.9 7.9"/></>),
   xcom:(<><path d="M17.2 3H20l-6.1 7L21 21h-5.4l-4.2-5.5L6.4 21H3.6l6.6-7.5L3 3h5.5l3.8 5.1L17.2 3Z"/></>),
   code:(<><path d="M8.5 8 4.5 12l4 4"/><path d="M15.5 8l4 4-4 4"/><path d="M13.5 6l-3 12"/></>),
   server:(<><rect x="3.5" y="4" width="17" height="7" rx="2"/><rect x="3.5" y="13" width="17" height="7" rx="2"/><path d="M7 7.5h.01M7 16.5h.01"/><path d="M17.5 7.5h-3M17.5 16.5h-3"/></>),
@@ -393,7 +397,7 @@ function Backdrop({accent}){
 }
 
 /* ---------------- DATA ---------------- */
-/* Canonical resource registry — every URL verified (see .claude/skills/midnight-resource-map).
+/* Canonical resource registry: every URL verified (see .claude/skills/midnight-resource-map).
    Keep this the single source of truth; refresh via that skill's procedure. */
 const LINKS = {
   // Getting started
@@ -404,6 +408,7 @@ const LINKS = {
   quick:    {a:"Quickstart: scaffold a dApp", b:"npx create-mn-app → running in minutes", url:"https://docs.midnight.network/getting-started/quickstart"},
   scaffold: {a:"create-mn-app", b:"Scaffolds contract + CLI + wallet, prewired", url:"https://github.com/midnightntwrk/create-mn-app"},
   hello:    {a:"Hello World tutorial", b:"Your first Compact contract, deployed", url:"https://docs.midnight.network/getting-started/hello-world"},
+  acquireTokens:{a:"Acquire tokens & register DUST", b:"Fund a wallet with tNIGHT & register DUST", url:"https://docs.midnight.network/guides/acquire-tokens", tag:"official"},
   zealy:    {a:"Earn while you learn (Zealy)", b:"Builder quests, XP, and rewards", url:"https://zealy.io/cw/midnightnetwork"},
 
   // Compact language & concepts
@@ -414,6 +419,10 @@ const LINKS = {
   concepts: {a:"Zero-knowledge proofs", b:"The privacy model, explained", url:"https://docs.midnight.network/concepts/zero-knowledge-proofs"},
   privacyPatterns:{a:"Keeping data private", b:"Commitments, nullifiers & Merkle patterns", url:"https://docs.midnight.network/concepts/how-midnight-works/keeping-data-private"},
   security: {a:"Security & best practices", b:"Adversarial testing patterns for contracts", url:"https://docs.midnight.network/guides/security-best-practices"},
+  vscodeExtension:{a:"Compact VS Code extension", b:"Syntax, inline errors & compile in your editor", url:"https://docs.midnight.network/compact/compilation-and-tooling/vscode-plugin", tag:"official"},
+  nightpaper:{a:"Nightpaper (whitepaper)", b:"The vision & architecture, in one paper", url:"https://midnight.network/whitepaper", tag:"official"},
+  kachina:  {a:"Kachina paper (privacy model)", b:"The formal model behind public/private state", url:"https://docs.midnight.network/learn/understanding-midnights-technology/kachina", tag:"official"},
+  tokenomics:{a:"Tokenomics paper (NIGHT/DUST)", b:"The dual-token model & incentives", url:"https://45047878.fs1.hubspotusercontent-na1.net/hubfs/45047878/Midnight-Tokenomics-And-Incentives-Whitepaper.pdf", tag:"official"},
 
   // SDKs & tooling
   midjs:    {a:"Midnight.js dApp SDK", b:"Deploy, call circuits & manage private state", url:"https://docs.midnight.network/sdks/official/midnight-js"},
@@ -427,22 +436,31 @@ const LINKS = {
   playground:{a:"Compact playground", b:"Write & compile Compact in the browser", url:"https://midnight-playground-one.vercel.app/"},
   edda:     {a:"Edda starter template", b:"Full-stack monorepo: contract + React + CLI", url:"https://github.com/eddalabs/midnight-starter-template"},
   nightforge:{a:"Nightforge CLI", b:"Compile, deploy & operate Compact contracts", url:"https://github.com/cadalt0/NIGHTFORGE"},
+  proofServer:{a:"Proof server setup", b:"Run the local ZK proof server (Docker)", url:"https://docs.midnight.network/guides/run-proof-server", tag:"official"},
+  testingGuide:{a:"Test contracts off-chain", b:"Simulate circuits & witnesses with testkit-js", url:"https://docs.midnight.network/guides/compact-javascript-runtime", tag:"official"},
+  supportMatrix:{a:"Compatibility / support matrix", b:"Which compiler pairs with which SDK", url:"https://docs.midnight.network/relnotes/support-matrix", tag:"official"},
+  nodeOperators:{a:"Run a node (operators)", b:"Requirements & setup to run a node", url:"https://docs.midnight.network/nodes", tag:"official"},
+
+  // Troubleshooting
+  fixVersions:{a:"Fix version-mismatch errors", b:"Resolve compiler/runtime version clashes", url:"https://docs.midnight.network/how-to/fix-version-mismatches", tag:"official"},
+  compilerErrors:{a:"Troubleshoot compiler errors", b:"Decode and fix common compiler errors", url:"https://docs.midnight.network/troubleshoot/compiler-errors", tag:"official"},
+  nodeErrorCodes:{a:"Node error codes", b:"What each node error code means", url:"https://docs.midnight.network/nodes/error-codes", tag:"official"},
 
   // Partner tooling
   midnames: {a:"Midnames (MidNS)", b:".night names, DIDs & selective-disclosure identity", url:"https://docs.midnight.network/sdks/community/midnames"},
   viaBridge:{a:"VIA Labs bridge", b:"Contract-to-contract messaging across 140+ chains", url:"https://vialabs.io/"},
   expert:   {a:"Midnight Expert", b:"Hire vetted Midnight builders for your project", url:"https://midnightntwrk.expert/"},
-  oneAM:    {a:"1AM — AI dApp builder", b:"Prompt → Compact contract + React front end", url:"https://1am.xyz/"},
+  oneAM:    {a:"1AM: AI dApp builder", b:"Prompt → Compact contract + React front end", url:"https://1am.xyz/"},
   kuira:    {a:"Kuira Android SDK", b:"Native mobile Midnight integration", url:"https://kuiralabs.github.io/kuira-sdk-android/"},
 
   // EffectStream (cross-chain)
-  effect:   {a:"EffectStream — multi-chain engine", b:"One state machine across EVM, Midnight, BTC, Cardano…", url:"https://github.com/effectstream/effectstream"},
+  effect:   {a:"EffectStream: multi-chain engine", b:"One state machine across EVM, Midnight, BTC, Cardano…", url:"https://github.com/effectstream/effectstream"},
   effectEvm:{a:"EVM + Midnight template", b:"ERC-721 sync, ZK contracts & a React front end", url:"https://github.com/effectstream/effectstream/tree/v-next/templates/evm-midnight-v2"},
   effectCardano:{a:"EVM + Cardano template", b:"Cross-chain dApp starter with Cardano", url:"https://github.com/effectstream/effectstream/tree/v-next/templates/evm-cardano"},
   effectSolana:{a:"Solana starter template", b:"Bring Solana state into Midnight logic", url:"https://github.com/effectstream/effectstream/tree/v-next/templates/solana-starter"},
   effectBitcoin:{a:"NIGHT + Bitcoin template", b:"Bitcoin-aware Midnight dApp starter", url:"https://github.com/effectstream/effectstream/tree/v-next/templates/night-bitcoin-v2"},
   effectGames:{a:"EffectStream on-chain games", b:"Chess, hex-battle, dice & RPS to fork", url:"https://github.com/effectstream/effectstream/tree/v-next/templates"},
-  effectNft:{a:"NFT pre-order / launchpad template", b:"Drops & pre-orders — great for IP & goods", url:"https://github.com/effectstream/effectstream/tree/v-next/templates/projected-nft-preorder"},
+  effectNft:{a:"NFT pre-order / launchpad template", b:"Drops & pre-orders, great for IP & goods", url:"https://github.com/effectstream/effectstream/tree/v-next/templates/projected-nft-preorder"},
   effectToken:{a:"Multi-chain token transfer template", b:"Move value across chains into Midnight", url:"https://github.com/effectstream/effectstream/tree/v-next/templates/multi-chain-token-transfer"},
   effectAi:{a:"Shinkai AI-agent template", b:"Agent-driven quests & actions on Midnight", url:"https://github.com/effectstream/effectstream/tree/v-next/templates/shinkai-v2"},
 
@@ -464,6 +482,8 @@ const LINKS = {
   faucet:   {a:"Preprod faucet", b:"Get tNIGHT to fund your test wallet", url:"https://faucet.preprod.midnight.network"},
   explorer: {a:"Preprod explorer", b:"Confirm your live transaction on-chain", url:"https://preprod.midnightexplorer.com"},
   lace:     {a:"Lace wallet (Midnight)", b:"The browser wallet your users connect", url:"https://www.lace.io/midnight"},
+  subscanExplorer:{a:"Subscan explorer", b:"Alternative block explorer (Subscan)", url:"https://midnight-preprod.subscan.io/", tag:"partner"},
+  explorer1am:{a:"1AM explorer", b:"Community block explorer by 1AM", url:"https://explorer.1am.xyz/", tag:"partner"},
 
   // Ecosystem, community & content
   ecosystem:{a:"Ecosystem overview & use cases", b:"What people are building and why", url:"https://midnight.network/ecosystem"},
@@ -473,18 +493,21 @@ const LINKS = {
   forum:    {a:"Developer forum", b:"Ask questions & compare notes with builders", url:"https://forum.midnight.network"},
   devhang:  {a:"Fireside Dev Hang", b:"Weekly live builder session on YouTube", url:"https://www.youtube.com/@midnight.network"},
   contrib:  {a:"Contributor Hub & content bounties", b:"Get paid to write, record, and explain", url:"https://midnight.network/blog"},
+  discord:  {a:"Discord (#dev-chat)", b:"Join #dev-chat and get unstuck fast", url:"https://discord.com/invite/midnightnetwork", tag:"official"},
+  telegram: {a:"Telegram", b:"The official Midnight Telegram", url:"https://t.me/Midnight_Network_Official", tag:"official"},
+  twitter:  {a:"X / Twitter", b:"Follow @MidnightNtwrk for updates", url:"https://x.com/MidnightNtwrk", tag:"official"},
+  nightforce:{a:"Nightforce ambassador program", b:"For advocates & community leaders", url:"https://midnight.network/nightforce-ambassador-program", tag:"official"},
 
   // Programs & funding
-  aliit:    {a:"The Aliit — technical fellowship", b:"Rolling admissions; depth-first contributor program", url:"https://midnight.network/aliit"},
+  aliit:    {a:"The Aliit: technical fellowship", b:"Rolling admissions; depth-first contributor program", url:"https://midnight.network/aliit"},
   nightsky: {a:"Night Sky Accelerator", b:"The mature, revenue-stage cohort", url:"https://midnight.network/night-sky-accelerator"},
-  catalyst: {a:"Project Catalyst", b:"Open-source grants from Cardano's treasury", url:"https://projectcatalyst.io"},
   buildclub:{a:"Build Club", b:"Pre-seed accelerator: PoC → production", url:"https://midnight.network/build-club"},
   foundation:{a:"Midnight Foundation", b:"The hub for ecosystem programs & grants", url:"https://midnight.foundation"},
 
   // Bring outside data in (attestations / oracles)
   attest:   {a:"Attestation API tutorial", b:"Feed signed off-chain data into a ZK circuit", url:"https://docs.midnight.network/tutorials/zk-loan/attestation-api"},
 
-  // Ecosystem projects — real repos to fork across verticals
+  // Ecosystem projects: real repos to fork across verticals
   awesomeList:{a:"Awesome Midnight dApps", b:"The full curated index of ecosystem repos", url:"https://github.com/midnightntwrk/midnight-awesome-dapps"},
   rwaRepo:  {a:"Brick Towers RWA", b:"Privacy-first real-world-asset trading, shielded", url:"https://github.com/bricktowers/midnight-rwa"},
   statera:  {a:"Statera Protocol", b:"Over-collateralized private stablecoin", url:"https://github.com/statera-protocol/statera-protocol-midnight"},
@@ -498,11 +521,17 @@ const LINKS = {
   midskills:{a:"Midnight AI skills", b:"Agent skills for building on Midnight", url:"https://midskills.sevryn.xyz/"},
   community:{a:"Community tools & SDKs", b:"Everything the ecosystem has built", url:"https://docs.midnight.network/sdks/community"},
   city:     {a:"Midnight City", b:"Explore the ecosystem, mapped as a city", url:"https://midnight.city/"},
-  mips:     {a:"Improvement proposals (MIPs)", b:"Shape the protocol — the MIP process", url:"https://midnight.network/blog/improvement-proposal-process"},
+  mips:     {a:"Improvement proposals (MIPs)", b:"Shape the protocol via the MIP process", url:"https://midnight.network/blog/improvement-proposal-process"},
   hackathon:{a:"Hackathons", b:"Build fast, win prizes, ship with a cohort", url:"https://midnight.network/hackathon"},
+  kapaMcp:  {a:"Kapa MCP (docs-grounded AI)", b:"Ask AI grounded in the Midnight docs", url:"https://midnight.mcp.kapa.ai", tag:"official"},
+  learnCompact:{a:"Learn Compact", b:"A guided Compact learning repo", url:"https://github.com/Olanetsoft/learn-compact", tag:"community"},
+  compactByExample:{a:"Compact By Example", b:"Learn Compact through small examples", url:"https://github.com/Olanetsoft/compact-by-example", tag:"community"},
+  meshMidnight:{a:"Mesh Midnight", b:"MeshJS tooling & starters for Midnight", url:"https://midnight.meshjs.dev/", tag:"community"},
+  compactLsp:{a:"Compact LSP", b:"Language server for Compact editors", url:"https://github.com/1NickPappas/compact-lsp", tag:"community"},
+  midnightDoctor:{a:"Midnight Doctor", b:"Preflight-check your Midnight setup", url:"https://github.com/fredericosanntana/midnight-doctor", tag:"community"},
 };
 
-/* Journey stages — resources are grouped and ordered so each developer is pointed
+/* Journey stages: resources are grouped and ordered so each developer is pointed
    at the right tool at the right moment: understand it, build it, ship it, grow. */
 const STAGE = {
   // Learn
@@ -526,15 +555,21 @@ const STAGE = {
   // Ship
   faucet:"ship", explorer:"ship", nodeDocker:"build", indexer:"build",
   // Grow
-  rfs:"grow", aliit:"grow", nightsky:"grow", buildclub:"grow", catalyst:"grow",
+  rfs:"grow", aliit:"grow", nightsky:"grow", buildclub:"grow",
   foundation:"grow", zealy:"grow", devhang:"grow", blog:"grow", forum:"grow",
   contrib:"grow", awesome:"grow", city:"grow", mips:"grow", hackathon:"grow",
   ideaboard:"learn",
+  // batch 2
+  nightpaper:"learn", kachina:"learn", tokenomics:"learn", kapaMcp:"learn", learnCompact:"learn", compactByExample:"learn",
+  vscodeExtension:"build", proofServer:"build", testingGuide:"build", supportMatrix:"build", nodeOperators:"build",
+  fixVersions:"build", compilerErrors:"build", nodeErrorCodes:"build", meshMidnight:"build", compactLsp:"build", midnightDoctor:"build",
+  acquireTokens:"ship", subscanExplorer:"ship", explorer1am:"ship",
+  discord:"grow", telegram:"grow", twitter:"grow", nightforce:"grow",
 };
 const STAGES = ["learn","build","ship","grow"];
 const STAGE_LABEL = {learn:"Learn the model", build:"Build it", ship:"Ship & verify", grow:"Go further"};
 
-// Reactive accent per path — recolors the ambient backdrop & result card
+// Reactive accent per path: recolors the ambient backdrop & result card
 const ACCENTS = {
   ethereum:"#6373ff", cardano:"#0d3fff", solana:"#9945ff", bitcoin:"#f7931a",
   xrp:"#12b6c9", student:"#0d1dff", new:"#0d1dff", funding:"#12b56b",
@@ -575,8 +610,8 @@ const DIMENSIONS = [
 /* ---- Result / detail content ---- */
 const BEGINNER = {
   id:"new", ic:"sprout", ttl:"Start here: your first win on Midnight",
-  blurb:"Understand what Midnight is, get the toolchain running, then ship a Hello World and a first dApp. Everything below is free and open — no gate on learning.",
-  links: P("whatIs","academy","playground","prompts","install","hello","scaffold"),
+  blurb:"Understand what Midnight is, get the toolchain running, then ship a Hello World and a first dApp. Everything below is free and open, with no gate on learning.",
+  links: P("whatIs","academy","learnCompact","compactByExample","kapaMcp","playground","install","hello","acquireTokens"),
   leads: ["academy","zealy","devhang"],
 };
 
@@ -587,17 +622,17 @@ const ECOSYSTEMS = {
     uc:["Shielded token balances & transfers","Compliant pools without doxxing users","Private order flow / sealed bids","Selective-disclosure KYC"],
     links: P("effectEvm","effect","writing","midjs","exBboard","catalog"), leads:["academy","zealy","buildclub"]},
   cardano:{ic:"cardano", ttl:"Coming from Cardano",
-    blurb:"Midnight is Cardano's privacy sidechain. You already know the ecosystem, Lace, and the eUTXO mindset — now add programmable confidentiality with NIGHT and DUST.",
+    blurb:"Midnight is Cardano's privacy sidechain. You already know the ecosystem, Lace, and the eUTXO mindset, so now add programmable confidentiality with NIGHT and DUST.",
     map:[["Plutus / Aiken","Compact"],["Lace wallet","Lace + Midnight"],["ADA staking","NIGHT / DUST"]],
     uc:["Private DeFi on top of Cardano liquidity","Identity & credentials with selective disclosure","Confidential governance & voting","Cross-chain private data via EffectStream"],
     links: P("effectCardano","compact","midjs","exBboard","catalog","rfs"), leads:["academy","buildclub","nightsky"]},
   solana:{ic:"solana", ttl:"Coming from Solana",
-    blurb:"You're used to speed and a Rust toolchain. Midnight brings privacy as a first-class primitive — prove things are true without publishing the data behind them.",
+    blurb:"You're used to speed and a Rust toolchain. Midnight brings privacy as a first-class primitive: prove things are true without publishing the data behind them.",
     map:[["Anchor / Rust","Compact"],["SPL tokens","Shielded assets"],["web3.js","Midnight.js"]],
     uc:["Private payments & confidential balances","Hidden-information games","Verifiable AI / data provenance","Sealed-bid marketplaces"],
     links: P("effectSolana","compact","midjs","exBboard","examples","rfs"), leads:["academy","zealy","buildclub"]},
   bitcoin:{ic:"bitcoin", ttl:"Coming from Bitcoin",
-    blurb:"You value sound money and minimal trust. Midnight extends that ethos to data: prove a claim — attendance, ownership, eligibility — while revealing nothing else.",
+    blurb:"You value sound money and minimal trust. Midnight extends that ethos to data: prove a claim (attendance, ownership, eligibility) while revealing nothing else.",
     map:[["Script","Compact"],["UTXO","Shielded state"],["Custody","Selective disclosure"]],
     uc:["Proof-of-reserve without exposing holdings","Private attestations & credentials","Cross-chain flows via EffectStream","Confidential membership proofs"],
     links: P("effectBitcoin","whatIs","concepts","effect","catalog"), leads:["academy","zealy"]},
@@ -610,12 +645,12 @@ const ECOSYSTEMS = {
     blurb:"No prior chain experience needed. Start at the Academy, earn XP on Zealy as you go, and a completed cert plus a shipped project becomes a real portfolio credential.",
     map:null,
     uc:["Learn ZK & privacy from zero","Build a portfolio-worthy dApp","Earn certs that unlock bounties","Join a university club pathway"],
-    links: P("academy","zealy","install","hello","devhang"), leads:["academy","zealy","buildclub"]},
+    links: P("academy","zealy","learnCompact","install","hello","discord"), leads:["academy","zealy","buildclub"]},
 };
 
 const INDUSTRIES = {
   ai:{ic:"cpu", ttl:"AI on Midnight",
-    blurb:"Prove an AI model ran, or that data met a policy — without exposing the model, the prompt, or the user's data. Midnight is built for verifiable, privacy-preserving AI.",
+    blurb:"Prove an AI model ran, or that data met a policy, without exposing the model, the prompt, or the user's data. Midnight is built for verifiable, privacy-preserving AI.",
     uc:["Private inference attestation (prove a model ran correctly)","ZK data provenance for training sets","Confidential agent-to-agent payments","Model licensing with selective disclosure","Privacy-preserving data marketplaces"],
     tools:"Compact policy circuits · Midnight.js · Shinkai + 1AM · Midnight prompt library · attestation API for signed off-chain data",
     links: P("concepts","effectAi","oneAM","midskills","attest","rfs"), leads:["academy","buildclub","nightsky"]},
@@ -625,7 +660,7 @@ const INDUSTRIES = {
     tools:"Compact · Midnight.js · EffectStream for cross-chain liquidity",
     links: P("statera","lunarswap","sealedbid","oz","attest","rfs"), leads:["academy","buildclub","nightsky"]},
   identity:{ic:"id", ttl:"Identity on Midnight",
-    blurb:"Selective disclosure is the killer app: prove you're over 18, a citizen, or KYC'd once — reveal only the claim, never the underlying document.",
+    blurb:"Selective disclosure is the killer app: prove you're over 18, a citizen, or KYC'd once, revealing only the claim, never the underlying document.",
     uc:["Reusable KYC / proof-of-personhood","Age & eligibility proofs","Verifiable credentials & attestations","Private, Sybil-resistant sign-in"],
     tools:"Compact · Midnight.js · credential patterns in Examples",
     links: P("exZkloan","midnames","attest","disclosure","compact","catalog"), leads:["academy","buildclub"]},
@@ -655,12 +690,12 @@ const INDUSTRIES = {
     tools:"Compact · Midnight.js · Examples",
     links: P("exKitties","sealedbid","oz","compact","awesomeList"), leads:["academy","zealy"]},
   ip:{ic:"sparkle", ttl:"IP & creators on Midnight",
-    blurb:"Everything can carry an ownership layer — patents, designs, music, brands, even a jacket. Tokenize IP and physical goods with private ownership, provable authenticity, and royalties that never leak your terms.",
+    blurb:"Everything can carry an ownership layer: patents, designs, music, brands, even a jacket. Tokenize IP and physical goods with private ownership, provable authenticity, and royalties that never leak your terms.",
     uc:["Tokenize IP: patents, designs, music & brands","Provenance & authenticity for physical goods and apparel","Private royalties & revenue splits","Sealed licensing with selective disclosure","Anti-counterfeit certificates you can verify but not dox"],
     tools:"Compact · OpenZeppelin NonFungibleToken · EffectStream NFT/pre-order templates · Midnight.js",
     links: P("effectNft","exKitties","oz","sealedbid","compact","catalog"), leads:["academy","buildclub","nightsky"]},
   rwa:{ic:"store", ttl:"Real-world assets & commerce on Midnight",
-    blurb:"Bring real assets and commerce on-chain without publishing who owns what. Confidential ownership, private tickets and loyalty, and compliant settlement that proves the rules were followed — and nothing more.",
+    blurb:"Bring real assets and commerce on-chain without publishing who owns what. Confidential ownership, private tickets and loyalty, and compliant settlement that proves the rules were followed, and nothing more.",
     uc:["Tokenize real-world assets with private ownership","Confidential transfer & settlement","Private tickets, memberships & loyalty","Compliant RWA via selective disclosure","Cross-chain settlement with EffectStream & VIA Labs"],
     tools:"Compact · EffectStream token transfer · VIA Labs bridge · Midnight.js",
     links: P("rwaRepo","effectToken","viaBridge","attest","compact"), leads:["academy","buildclub"]},
@@ -668,17 +703,17 @@ const INDUSTRIES = {
 
 const ROLES = {
   smartcontract:{ic:"scroll", ttl:"Smart-contract developer",
-    blurb:"Compact is where you'll live — the language for private, provable logic. Start with the concepts, fork the examples, and grow toward the Aliit fellowship.",
+    blurb:"Compact is where you'll live: it is the language for private, provable logic. Start with the concepts, fork the examples, and grow toward the Aliit fellowship.",
     uc:["Learn Compact & the ZK model","Fork reference contracts","Write & test shielded logic","Progress to exclusive Aliit bounties"],
     tools:"Compact · proof server · local dev environment",
-    links: P("writing","playground","compactRef","oz","midnightzk","aliit"), leads:["academy","zealy","buildclub"]},
+    links: P("writing","vscodeExtension","compactLsp","playground","compactRef","testingGuide","oz","compilerErrors","aliit"), leads:["academy","zealy","buildclub"]},
   frontend:{ic:"layout", ttl:"Front-end / dApp developer",
     blurb:"You'll wire React (or your framework) to shielded contracts with Midnight.js and the Lace wallet. The blockchain stays invisible to your users.",
     uc:["Connect a wallet & submit proofs","Build dApp UIs on Midnight.js","Handle proof generation UX","Ship a polished first dApp"],
     tools:"Midnight.js · Lace wallet · Quickstart",
-    links: P("quick","midjs","dappConnector","exLeaderboard","playground","lace"), leads:["academy","zealy","buildclub"]},
+    links: P("quick","midjs","dappConnector","meshMidnight","exLeaderboard","lace"), leads:["academy","zealy","buildclub"]},
   mobile:{ic:"phone", ttl:"Mobile developer",
-    blurb:"Bringing privacy proofs to phones has its own constraints — wallet integration, proof generation, and lightweight flows. Here's the SDK surface and tooling to know.",
+    blurb:"Bringing privacy proofs to phones has its own constraints: wallet integration, proof generation, and lightweight flows. Here's the SDK surface and tooling to know.",
     uc:["Integrate a mobile wallet flow","Offload / manage proof generation","Selective disclosure on-device","Cross-platform dApp front ends"],
     tools:"Midnight.js · Kuira Android SDK · wallet SDK · DApp Connector",
     links: P("midjs","dappConnector","kuira","walletSdk","effect"), leads:["academy","buildclub"]},
@@ -686,35 +721,35 @@ const ROLES = {
     blurb:"End to end: Compact contract, proof server, and a dApp front end, all running locally first. The end-to-end tutorial and local dev repo are your fastest path.",
     uc:["Run the whole stack locally","Contract → proof → UI, wired up","Deploy & verify on preprod","Ship a complete dApp"],
     tools:"Compact · Midnight.js · local dev environment · proof server",
-    links: P("scaffold","edda","localdev","exBboard","midjs","explorer"), leads:["academy","zealy","buildclub"]},
+    links: P("scaffold","proofServer","localdev","fixVersions","midnightDoctor","exBboard","midjs","supportMatrix","explorer"), leads:["academy","zealy","buildclub"]},
   security:{ic:"shield", ttl:"Security reviewer / auditor",
     blurb:"Early teams need affordable review; auditors need deal flow. Build a track record through the audit program and the Aliit's technical testing pipeline.",
     uc:["Claim mini-reviews for early teams","Build an on-platform track record","Feature-test ecosystem tooling","Qualify for higher-value work"],
     tools:"Contributor Hub · audit program (proposed) · the Aliit",
-    links: P("security","disclosure","midnightzk","community","aliit"), leads:["buildclub","nightsky"]},
+    links: P("security","disclosure","testingGuide","midnightzk","community","aliit"), leads:["buildclub","nightsky"]},
   founder:{ic:"rocket", ttl:"Founder / team",
-    blurb:"Got an idea and a small team? Build Club takes you from proof of concept toward production with guidance and the right intros — then Night Sky for the strongest. Need hands? Midnight Expert connects you with vetted builders.",
+    blurb:"Got an idea and a small team? Build Club takes you from proof of concept toward production with guidance and the right intros, then Night Sky for the strongest. Need hands? Midnight Expert connects you with vetted builders.",
     uc:["Validate an idea against real use cases","PoC → production with guidance","Get GTM & product-market-fit help","Access grants & accelerators"],
     tools:"Build Club · Night Sky · Request for Startups · Midnight Expert (hire builders)",
-    links: P("rfs","buildclub","nightsky","expert","catalyst"), leads:["buildclub","nightsky"]},
+    links: P("rfs","buildclub","nightsky","expert","foundation"), leads:["buildclub","nightsky"]},
   student:{ic:"cap", ttl:"Student / club member",
-    blurb:"Academy plus a shipped project is a concrete portfolio credential — and the entry to bounties and Build Club. Clubs get a dedicated pathway and co-marketing.",
+    blurb:"Academy plus a shipped project is a concrete portfolio credential, and the entry to bounties and Build Club. Clubs get a dedicated pathway and co-marketing.",
     uc:["Free, open Academy from zero","Earn XP & certs on Zealy","Ship a portfolio-worthy dApp","Bring a mini-hack to your club"],
     tools:"Academy · Zealy · university program",
-    links: P("academy","zealy","hello","ideaboard","install"), leads:["academy","zealy","buildclub"]},
+    links: P("academy","zealy","learnCompact","ideaboard","telegram","discord"), leads:["academy","zealy","buildclub"]},
   content:{ic:"pen", ttl:"Content creator / educator",
-    blurb:"Turn what you learn into tutorials, videos, and threads — and get paid for it. Content bounties are matched, and top pieces get amplified and folded into the Academy.",
+    blurb:"Turn what you learn into tutorials, videos, and threads, then get paid for it. Content bounties are matched, and top pieces get amplified and folded into the Academy.",
     uc:["Claim matched content bounties","Publish tutorials & walkthroughs","Present on the Dev Hang stream","Contribute to the Academy"],
     tools:"Contributor Hub · content bounties · Fireside Dev Hang",
-    links: P("contrib","devhang","blog","awesomeList","academy"), leads:["academy","zealy"]},
+    links: P("contrib","nightforce","twitter","devhang","discord","academy"), leads:["academy","zealy"]},
 };
 
 const DEEPER = {
   id:"deeper", ic:"rocket", ttl:"Go deeper on Midnight",
-  blurb:"You've shipped the basics — now master the internals. Go deep on Compact's disclosure model, the zero-knowledge machinery, the cryptography toolkit, and hardening — then earn a place in the Aliit.",
+  blurb:"You've shipped the basics, so now master the internals. Go deep on Compact's disclosure model, the zero-knowledge machinery, the cryptography toolkit, and hardening, then earn a place in the Aliit.",
   uc:["Master Compact & explicit disclosure","Understand ZK proofs & Kachina","Study production example contracts","Harden contracts with security patterns","Define standards in the Aliit fellowship"],
   tools:"Compact reference · midnight-zk toolkit · concepts & Kachina · security best practices",
-  links: P("compactRef","concepts","privacyPatterns","midnightzk","exContracts","security","aliit","blog"),
+  links: P("compactRef","kachina","nightpaper","concepts","privacyPatterns","midnightzk","tokenomics","aliit"),
   leads:["aliit","nightsky"],
 };
 
@@ -723,14 +758,14 @@ const NODE = {
   blurb:"Operate the network. Run a node with Docker, stand up an indexer, point your tooling at the right endpoints, and take it from a local stack to preprod and mainnet.",
   uc:["Run a Midnight node with Docker","Stand up an indexer for your dApp","Spin up the full local stack","Configure the right network endpoints","Move from local → preprod → mainnet"],
   tools:"midnight-node-docker · midnight-indexer · midnight-local-dev · networks & environments",
-  links: P("nodeDocker","indexer","localdev","networks","faucet","explorer"),
+  links: P("nodeOperators","nodeDocker","indexer","proofServer","nodeErrorCodes","networks","explorer","subscanExplorer","explorer1am"),
 };
 
 const FUNDING = {
   id:"funding", ic:"coins", ttl:"Fund your build on Midnight",
   blurb:"Whether you need a small PoC grant or a full accelerator with investment, there's a track for your stage. Programs are designed to build on each other.",
-  uc:["Open-source PoC grants (Catalyst)","Pre-seed accelerator support (Build Club)","Revenue-stage cohort (Night Sky)","Foundation-backed program funding"],
-  links: P("buildclub","catalyst","foundation","rfs","hackathon"), leads:["buildclub","nightsky"],
+  uc:["Open-source grants & bounties","Pre-seed accelerator support (Build Club)","Revenue-stage cohort (Night Sky)","Foundation-backed program funding"],
+  links: P("buildclub","foundation","rfs","hackathon"), leads:["buildclub","nightsky"],
 };
 
 const PROGRAMS = {
@@ -753,15 +788,30 @@ const srcLabel = (url) => {
     if(h.includes("academy.midnight")) return "Course";
     if(h.includes("youtube")) return "Video";
     if(h.includes("zealy")) return "Quests";
+    if(h.endsWith(".pdf") || url.endsWith(".pdf")) return "PDF";
     if(h.includes("vercel")) return "App";
     return "Site";
   } catch(e){ return "Site"; }
 };
+// who maintains it: explicit tag wins, else derive from host. Official gets no pill.
+const OFFICIAL_HOSTS = ["docs.midnight.network","midnight.network","academy.midnight.network","faucet.preprod.midnight.network","preprod.midnightexplorer.com","forum.midnight.network","zealy.io","midnight.foundation","midnight.mcp.kapa.ai","effectstream.github.io","x.com","t.me"];
+const sourceTag = (l) => {
+  if(l.tag) return l.tag;
+  try {
+    const u = new URL(l.url), h = u.hostname.replace(/^www\./,"");
+    // midnightntwrk, OpenZeppelin and EffectStream (our team) count as official
+    if(h==="github.com"){ const p=u.pathname.toLowerCase(); return (p.startsWith("/midnightntwrk")||p.startsWith("/openzeppelin")||p.startsWith("/effectstream"))?"official":"community"; }
+    if(h.includes("youtube")||h.includes("twitter")||h.includes("discord")) return "official";
+    if(OFFICIAL_HOSTS.some(o=>h===o||h.endsWith("."+o))) return "official";
+    return "community";
+  } catch(e){ return "community"; }
+};
 function ResourceLink({l}){
+  const tag = sourceTag(l);
   return (
     <a className="rlink" href={l.url} target="_blank" rel="noopener noreferrer">
       <div className="rlink-main">
-        <div className="a">{l.a}<span className="src">{srcLabel(l.url)}</span></div>
+        <div className="a">{l.a}<span className="src">{srcLabel(l.url)}</span>{tag!=="official" && <span className={"tagpill "+(tag==="partner"?"tp-partner":"tp-com")}>{tag}</span>}</div>
         <div className="b">{l.b}</div>
       </div>
       <span className="arw"><Icon name="arrowRight" size={18} /></span>
@@ -892,7 +942,7 @@ function PathFinder(){
 
       {start==="experience" && (
         <div className="dims">
-          <div className="dims-q"><span className="dims-step">Next</span> You've built before — which angle fits you best?</div>
+          <div className="dims-q"><span className="dims-step">Next</span> You've built before. Which angle fits you best?</div>
           <div className="dims-row">
             {DIMENSIONS.map(o=>(
               <button key={o.id} className={"dim btn"+(dim===o.id?" on":"")} onClick={()=>chooseDim(o.id)}>
@@ -1065,7 +1115,7 @@ function App(){
         <div className="wrap hero-grid">
           <div className="hero-copy">
             <h1 className="big">Developer Hub</h1>
-            <p className="lede">Everything you need to engineer privacy on Midnight — from your first line of code to production. Tell us where you are, and we'll hand you the exact repos, docs, and programs for your path.</p>
+            <p className="lede">Everything you need to engineer privacy on Midnight, from your first line of code to production. Tell us where you are, and we'll hand you the exact repos, docs, and programs for your path.</p>
           </div>
           <div className="hero-art"><XArt /></div>
         </div>
@@ -1093,7 +1143,7 @@ function App(){
           <div className="sec-h">
             <span className="kick">The developer spiral</span>
             <h2>Where every path leads</h2>
-            <p>Enter anywhere and spiral deeper — discover, learn, build, ship, then plug into the programs that keep you going.</p>
+            <p>Enter anywhere and spiral deeper: discover, learn, build, ship, then plug into the programs that keep you going.</p>
           </div>
           <Programs />
         </div>
@@ -1107,8 +1157,9 @@ function App(){
               <p>The data-protection blockchain. Build privacy-first apps with programmable confidentiality.</p>
               <div className="foot-social">
                 <a href="https://github.com/midnightntwrk" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><Icon name="github" size={19} /></a>
-                <a href="https://twitter.com/MidnightNtwrk" target="_blank" rel="noopener noreferrer" aria-label="X"><Icon name="xcom" size={17} /></a>
-                <a href="https://discord.gg/midnightnetwork" target="_blank" rel="noopener noreferrer" aria-label="Discord"><Icon name="discord" size={19} /></a>
+                <a href="https://x.com/MidnightNtwrk" target="_blank" rel="noopener noreferrer" aria-label="X"><Icon name="xcom" size={17} /></a>
+                <a href="https://discord.com/invite/midnightnetwork" target="_blank" rel="noopener noreferrer" aria-label="Discord"><Icon name="discord" size={19} /></a>
+                <a href="https://t.me/Midnight_Network_Official" target="_blank" rel="noopener noreferrer" aria-label="Telegram"><Icon name="telegram" size={18} /></a>
                 <a href="https://www.youtube.com/@midnight.network" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><Icon name="youtube" size={19} /></a>
               </div>
             </div>
@@ -1130,7 +1181,7 @@ function App(){
           </div>
           <div className="foot-bottom">
             <span>© Midnight · Developer Hub</span>
-            <span className="foot-note">Guided onboarding — every link points to the most specific docs page, example repo, or program for that path.</span>
+            <span className="foot-note">Guided onboarding. Every link points to the most specific docs page, example repo, or program for that path.</span>
           </div>
         </div>
       </footer>
