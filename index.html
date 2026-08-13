@@ -439,7 +439,7 @@ const LINKS = {
   proofServer:{a:"Proof server setup", b:"Run the local ZK proof server (Docker)", url:"https://docs.midnight.network/guides/run-proof-server", tag:"official"},
   testingGuide:{a:"Test contracts off-chain", b:"Simulate circuits & witnesses with testkit-js", url:"https://docs.midnight.network/guides/compact-javascript-runtime", tag:"official"},
   supportMatrix:{a:"Compatibility / support matrix", b:"Which compiler pairs with which SDK", url:"https://docs.midnight.network/relnotes/support-matrix", tag:"official"},
-  nodeOperators:{a:"Run a node (operators)", b:"Requirements & setup to run a node", url:"https://docs.midnight.network/nodes", tag:"official"},
+  nodeOperators:{a:"Run a node", b:"The complete node reference & requirements", url:"https://docs.midnight.network/nodes", tag:"official"},
 
   // Troubleshooting
   fixVersions:{a:"Fix version-mismatch errors", b:"Resolve compiler/runtime version clashes", url:"https://docs.midnight.network/how-to/fix-version-mismatches", tag:"official"},
@@ -452,6 +452,13 @@ const LINKS = {
   expert:   {a:"Midnight Expert", b:"Hire vetted Midnight builders for your project", url:"https://midnightntwrk.expert/"},
   oneAM:    {a:"1AM: AI dApp builder", b:"Prompt → Compact contract + React front end", url:"https://1am.xyz/"},
   kuira:    {a:"Kuira Android SDK", b:"Native mobile Midnight integration", url:"https://kuiralabs.github.io/kuira-sdk-android/"},
+
+  // Midnight Passport (passkey wallet + platform, on Preview)
+  passport: {a:"Midnight Passport wallet", b:"Passkey wallet: one-tap onboarding, no seed, sponsored fees", url:"https://midnightpassport.com", tag:"partner"},
+  passportDocs:{a:"Passport docs", b:"Integrate the Passport wallet (with a Copy-for-AI button)", url:"https://docs.midnightpassport.com", tag:"partner"},
+  passportTemplate:{a:"Passport starter template", b:"Clone it and you're talking to Passport in minutes", url:"https://template.midnightpassport.com", tag:"partner"},
+  passportHub:{a:"Passport App Hub", b:"Apps on the Passport bridge, plus an open hackathon", url:"https://hub.midnightpassport.com", tag:"partner"},
+  passportRaffle:{a:"Passport Raffle (demo dApp)", b:"A live dApp taking real paid entries on Preview", url:"https://raffle.midnightpassport.com", tag:"partner"},
 
   // EffectStream (cross-chain)
   effect:   {a:"EffectStream: multi-chain engine", b:"One state machine across EVM, Midnight, BTC, Cardano…", url:"https://github.com/effectstream/effectstream"},
@@ -481,7 +488,7 @@ const LINKS = {
   // Deploy & verify
   faucet:   {a:"Preprod faucet", b:"Get tNIGHT to fund your test wallet", url:"https://faucet.preprod.midnight.network"},
   explorer: {a:"Preprod explorer", b:"Confirm your live transaction on-chain", url:"https://preprod.midnightexplorer.com"},
-  lace:     {a:"Lace wallet (Midnight)", b:"The browser wallet your users connect", url:"https://www.lace.io/midnight"},
+  lace:     {a:"Lace wallet (Midnight)", b:"The browser wallet your users connect", url:"https://www.lace.io/midnight", tag:"partner"},
   subscanExplorer:{a:"Subscan explorer", b:"Alternative block explorer (Subscan)", url:"https://midnight-preprod.subscan.io/", tag:"partner"},
   explorer1am:{a:"1AM explorer", b:"Community block explorer by 1AM", url:"https://explorer.1am.xyz/", tag:"partner"},
 
@@ -564,6 +571,7 @@ const STAGE = {
   fixVersions:"build", compilerErrors:"build", nodeErrorCodes:"build", meshMidnight:"build", compactLsp:"build", midnightDoctor:"build",
   acquireTokens:"ship", subscanExplorer:"ship", explorer1am:"ship",
   discord:"grow", telegram:"grow", twitter:"grow", nightforce:"grow",
+  passport:"build", passportDocs:"build", passportTemplate:"build", passportRaffle:"build", passportHub:"grow",
 };
 const STAGES = ["learn","build","ship","grow"];
 const STAGE_LABEL = {learn:"Learn the model", build:"Build it", ship:"Ship & verify", grow:"Go further"};
@@ -610,7 +618,7 @@ const DIMENSIONS = [
 const BEGINNER = {
   id:"new", ic:"sprout", ttl:"Start here: your first win on Midnight",
   blurb:"Understand what Midnight is, get the toolchain running, then ship a Hello World and a first dApp. Everything below is free and open, with no gate on learning.",
-  links: P("whatIs","academy","learnCompact","compactByExample","playground","install","hello","acquireTokens"),
+  links: P("whatIs","academy","learnCompact","compactByExample","playground","install","hello","passport","acquireTokens"),
   leads: ["academy","zealy","devhang"],
 };
 
@@ -662,7 +670,7 @@ const INDUSTRIES = {
     blurb:"Selective disclosure is the killer app: prove you're over 18, a citizen, or KYC'd once, revealing only the claim, never the underlying document.",
     uc:["Reusable KYC / proof-of-personhood","Age & eligibility proofs","Verifiable credentials & attestations","Private, Sybil-resistant sign-in"],
     tools:"Compact · Midnight.js · credential patterns in Examples",
-    links: P("exZkloan","midnames","attest","disclosure","compact","catalog"), leads:["academy","buildclub"]},
+    links: P("exZkloan","midnames","passport","attest","disclosure","compact"), leads:["academy","buildclub"]},
   healthcare:{ic:"health", ttl:"Healthcare on Midnight",
     blurb:"Share the proof, not the record. Patients consent, providers verify, and sensitive health data never leaves the user's control.",
     uc:["Consent proofs & access control","Private health records & sharing","Clinical-trial data provenance","Insurance eligibility without full disclosure"],
@@ -677,7 +685,7 @@ const INDUSTRIES = {
     blurb:"Hidden information is what makes games fun. Midnight gives you private state for cards, fog-of-war, and sealed moves that stay secret until reveal.",
     uc:["Hidden-hand card & strategy games","Fog-of-war & private map state","Provably fair randomness","Sealed-bid in-game economies"],
     tools:"Compact for private game state · Midnight.js · EffectStream game templates (chess, battles)",
-    links: P("exBattleship","exLeaderboard","effectGames","compact","examples"), leads:["academy","zealy"]},
+    links: P("exBattleship","exLeaderboard","effectGames","passportRaffle","compact"), leads:["academy","zealy"]},
   governance:{ic:"ballot", ttl:"Governance on Midnight",
     blurb:"Vote privately but verifiably: eligible voters prove membership and cast ballots no one can trace, while tallies stay auditable.",
     uc:["Private, coercion-resistant voting","Eligibility proofs for DAOs","Anonymous but Sybil-resistant polls","Confidential treasury decisions"],
@@ -710,12 +718,12 @@ const ROLES = {
     blurb:"You'll wire React (or your framework) to shielded contracts with Midnight.js and the Lace wallet. The blockchain stays invisible to your users.",
     uc:["Connect a wallet & submit proofs","Build dApp UIs on Midnight.js","Handle proof generation UX","Ship a polished first dApp"],
     tools:"Midnight.js · Lace wallet · Quickstart",
-    links: P("quick","midjs","dappConnector","meshMidnight","exLeaderboard","lace"), leads:["academy","zealy","buildclub"]},
+    links: P("quick","midjs","dappConnector","passport","passportTemplate","meshMidnight","exLeaderboard","lace"), leads:["academy","zealy","buildclub"]},
   mobile:{ic:"phone", ttl:"Mobile developer",
     blurb:"Bringing privacy proofs to phones has its own constraints: wallet integration, proof generation, and lightweight flows. Here's the SDK surface and tooling to know.",
     uc:["Integrate a mobile wallet flow","Offload / manage proof generation","Selective disclosure on-device","Cross-platform dApp front ends"],
     tools:"Midnight.js · Kuira Android SDK · wallet SDK · DApp Connector",
-    links: P("midjs","dappConnector","kuira","walletSdk","effect"), leads:["academy","buildclub"]},
+    links: P("midjs","dappConnector","passport","passportDocs","kuira","walletSdk"), leads:["academy","buildclub"]},
   fullstack:{ic:"layers", ttl:"Full-stack developer",
     blurb:"End to end: Compact contract, proof server, and a dApp front end, all running locally first. The end-to-end tutorial and local dev repo are your fastest path.",
     uc:["Run the whole stack locally","Contract → proof → UI, wired up","Deploy & verify on preprod","Ship a complete dApp"],
@@ -764,7 +772,7 @@ const FUNDING = {
   id:"funding", ic:"coins", ttl:"Fund your build on Midnight",
   blurb:"Whether you need a small PoC grant or a full accelerator with investment, there's a track for your stage. Programs are designed to build on each other.",
   uc:["Open-source grants & bounties","Pre-seed accelerator support (Build Club)","Revenue-stage cohort (Night Sky)","Foundation-backed program funding"],
-  links: P("buildclub","foundation","rfs","hackathon"), leads:["buildclub","nightsky"],
+  links: P("buildclub","foundation","rfs","hackathon","passportHub"), leads:["buildclub","nightsky"],
 };
 
 const PROGRAMS = {
