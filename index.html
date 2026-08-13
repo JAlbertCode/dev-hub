@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Midnight Developer Hub — Find your path</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.26.2/babel.min.js"></script>
+<style>
+  :root{
+    --blue:#2C2CFF; --blue-2:#8B96FF; --blue-600:#4A4AFF; --violet:#8B5CF6; --ink:#F5F6FA;
+    --dim:#9EA0AE; --faint:#7C7C8A;
+    --border:#22222B; --border-2:#2E2E38; --label:#13131A; --callout:rgba(44,44,255,.14); --constraint:rgba(139,92,246,.14);
+    --bg:#08080B; --bg-soft:#0F0F15; --card:#0E0E14; --panel:#101018; --gold:#FFC94D; --accent:#2C2CFF;
+    --shadow-sm:0 1px 0 rgba(255,255,255,.02);
+    --shadow:0 1px 0 rgba(255,255,255,.03),0 18px 40px rgba(0,0,0,.55);
+    --shadow-lg:0 30px 80px rgba(0,0,0,.7);
+    --r:8px; --r-lg:12px;
+    --mono:'Space Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+    --ease:cubic-bezier(.22,.61,.36,1);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased;line-height:1.55;letter-spacing:-.006em}
+  a{color:inherit}
+  svg{display:block}
+  ::selection{background:rgba(44,44,255,.32)}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+  .btn{cursor:pointer;border:none;font-family:inherit;color:inherit}
+  :where(a,button,.btn,input):focus-visible{outline:2px solid var(--blue-2);outline-offset:2px;border-radius:4px}
+  /* offset anchor jumps so the pinned header + sub-nav don't cover section headings */
+  #finder,#journey,#explore,#programs{scroll-margin-top:120px}
+  .backdrop{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none;background:var(--bg)}
+
+  /* Header */
+  header.site{position:sticky;top:0;z-index:50;background:rgba(6,6,9,.92);backdrop-filter:saturate(140%) blur(14px);border-bottom:1px solid var(--border)}
+  .hd{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .hd img{height:22px;display:block;filter:invert(1) brightness(1.9)}
+  .hd nav{display:flex;align-items:center;gap:28px;font-size:14.5px;font-weight:500;color:var(--dim)}
+  .hd .brand{display:inline-flex;align-items:center}
+  .hd nav a{text-decoration:none;transition:color .15s var(--ease)}
+  .hd nav a:hover{color:var(--ink)}
+  .hd nav a.on{color:var(--ink);font-weight:600}
+  .hd nav a.navcta{background:var(--blue);color:#fff;padding:9px 16px;border-radius:6px;font-weight:600;font-size:13px;letter-spacing:.01em;display:inline-flex;align-items:center;gap:6px}
+  .hd nav a.navcta:hover{background:var(--blue-600);color:#fff}
+  @media(max-width:820px){.hd nav a:not(.navcta){display:none}}
+  /* Jump-to sub-nav (mirrors the live site) */
+  .subnav{position:sticky;top:64px;z-index:49;border-bottom:1px solid var(--border);background:rgba(8,8,11,.82);backdrop-filter:saturate(140%) blur(12px)}
+  .subnav .wrap{display:flex;align-items:center;gap:22px;height:40px;overflow-x:auto}
+  .subnav .lbl{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);flex:none}
+  .subnav a{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);text-decoration:none;white-space:nowrap;transition:color .15s var(--ease)}
+  .subnav a:hover{color:var(--blue-2)}
+  @media(max-width:600px){.subnav{display:none}}
+
+  /* Hero */
+  .hero{padding:80px 0 24px;text-align:center;position:relative}
+  .hero>*{position:relative;z-index:1}
+  .eyebrow{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:11.5px;font-weight:400;letter-spacing:.18em;text-transform:uppercase;color:var(--blue-2);background:transparent;border:1px solid var(--border-2);padding:7px 15px;border-radius:100px;margin-bottom:26px}
+  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 4px rgba(44,44,255,.2)}
+  h1.big{font-size:62px;line-height:1.02;font-weight:600;letter-spacing:-.03em;margin:0 0 20px}
+  h1.big span{background:linear-gradient(96deg,#6b7bff,#a89cff);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .lede{font-size:19px;color:var(--dim);max-width:600px;margin:0 auto 8px;line-height:1.55}
+  @media(max-width:760px){.hero{padding:52px 0 8px}h1.big{font-size:38px}.lede{font-size:16.5px}}
+
+  /* Path finder */
+  .finder{margin:44px auto 8px;max-width:920px;background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);box-shadow:var(--shadow);overflow:hidden;text-align:left}
+  .finder-head{padding:18px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:13px}
+  .step-dot{width:24px;height:24px;border-radius:6px;background:var(--blue);color:#fff;font-size:13px;font-weight:700;display:grid;place-items:center;flex:none}
+  .finder-head h3{margin:0;font-size:16.5px;font-weight:600;letter-spacing:-.01em}
+  .finder-head .sub{margin-left:auto}
+  .grid-opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;padding:20px 24px}
+  .opt{position:relative;text-align:left;padding:14px 15px;border:1px solid var(--border);border-radius:var(--r);background:var(--bg-soft);transition:transform .18s var(--ease),box-shadow .18s var(--ease),border-color .18s var(--ease);display:flex;gap:13px;align-items:center}
+  .opt:hover{border-color:var(--blue-2);transform:translateY(-2px)}
+  .opt.sel{border-color:var(--blue-2);background:linear-gradient(180deg,var(--callout),var(--bg-soft));box-shadow:0 0 0 3px rgba(44,44,255,.18)}
+  .opt .ic,.card .ic,.rc-head .ic{display:grid;place-items:center;flex:none;color:var(--blue-2);background:var(--callout);border:1px solid var(--border-2);border-radius:8px}
+  .opt .ic{width:40px;height:40px}
+  .opt.sel .ic{background:var(--blue);color:#fff;border-color:var(--blue-2)}
+  .opt .ttl{font-weight:600;font-size:15px;margin-bottom:1px;letter-spacing:-.01em}
+  .opt .ds{font-size:12.5px;color:var(--dim);line-height:1.4}
+  .lnk{background:none;border:none;color:var(--dim);font-weight:600;font-size:13.5px;cursor:pointer;padding:0;font-family:inherit}
+  .lnk:hover{color:var(--blue-2)}
+
+  /* Result panel */
+  .result{padding:6px 20px 24px;animation:rise .32s var(--ease)}
+  @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  .result-card{border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;background:var(--card)}
+  .rc-head{position:relative;padding:26px 24px 22px;background:linear-gradient(180deg,color-mix(in srgb,var(--accent) 16%,var(--card)),var(--card));border-bottom:1px solid var(--border)}
+  .rc-head:before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,var(--accent),transparent)}
+  .rc-head .ic{width:50px;height:50px;border-radius:10px;margin-bottom:14px;color:#fff;background:color-mix(in srgb,var(--accent) 42%,transparent);border-color:color-mix(in srgb,var(--accent) 55%,var(--border))}
+  .rc-head h4{margin:0 0 7px;font-size:23px;font-weight:600;letter-spacing:-.02em}
+  .rc-head p{margin:0;color:var(--dim);font-size:15px;max-width:640px;line-height:1.55}
+  .rc-body{padding:20px 24px}
+  .rc-sub{font-family:var(--mono);font-size:11px;font-weight:400;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin:0 0 13px}
+  @media(max-width:620px){.grid-opts{padding:16px}.rc-body,.rc-head{padding-left:18px;padding-right:18px}}
+
+  /* Detail page — "you already know this" */
+  .know{background:color-mix(in srgb,var(--accent) 8%,var(--card));border:1px solid color-mix(in srgb,var(--accent) 26%,var(--border));border-radius:var(--r);padding:14px 16px;margin-bottom:20px}
+  .know-lbl{display:block;font-family:var(--mono);font-size:10.5px;font-weight:400;letter-spacing:.12em;text-transform:uppercase;color:var(--blue-2);margin-bottom:10px}
+  .know-pairs{display:flex;flex-wrap:wrap;gap:8px}
+  .pair{display:inline-flex;align-items:center;gap:7px;background:var(--bg);border:1px solid var(--border-2);border-radius:7px;padding:5px 11px;font-size:13px}
+  .pair em{font-style:normal;color:var(--dim)}
+  .pair b{font-weight:600}
+  .pair svg{color:var(--accent);flex:none}
+
+  /* Detail page — use cases */
+  .dsec{margin-bottom:22px}
+  .dsec:last-child{margin-bottom:0}
+  .stage-head{display:flex;align-items:center;gap:9px;color:var(--ink)}
+  .stage-num{width:19px;height:19px;border-radius:5px;background:var(--accent);color:#fff;font-size:11px;font-weight:700;display:grid;place-items:center;flex:none}
+  .uc-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  @media(max-width:600px){.uc-grid{grid-template-columns:1fr}}
+  .uc-card{display:flex;gap:10px;align-items:flex-start;background:var(--bg-soft);border:1px solid var(--border);border-radius:8px;padding:11px 13px;font-size:13.5px;line-height:1.35}
+  .uc-tick{width:19px;height:19px;border-radius:5px;background:color-mix(in srgb,var(--accent) 28%,transparent);color:#fff;display:grid;place-items:center;flex:none;margin-top:1px}
+
+  /* Detail page — tooling panel */
+  .toolpanel{display:flex;gap:13px;align-items:flex-start;background:color-mix(in srgb,var(--accent) 8%,var(--card));border:1px solid color-mix(in srgb,var(--accent) 24%,var(--border));border-radius:var(--r);padding:14px 16px;margin-bottom:22px}
+  .toolpanel .tp-ic{width:34px;height:34px;border-radius:8px;background:var(--bg);border:1px solid var(--border-2);color:var(--accent);display:grid;place-items:center;flex:none}
+  .tp-lbl{display:block;font-family:var(--mono);font-size:10.5px;font-weight:400;letter-spacing:.12em;text-transform:uppercase;color:var(--blue-2);margin-bottom:3px}
+  .toolpanel p{margin:0;font-size:13px;color:var(--ink);line-height:1.5}
+
+  /* Resource links */
+  .links{display:grid;gap:8px}
+  .rlink{display:flex;align-items:center;gap:14px;padding:13px 15px;border:1px solid var(--border);border-radius:var(--r);text-decoration:none;transition:.16s var(--ease);background:var(--bg-soft)}
+  .rlink:hover{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 6%,var(--bg-soft));transform:translateX(3px)}
+  .rlink-main{min-width:0}
+  .rlink .a{font-weight:600;font-size:14.5px;letter-spacing:-.01em;display:flex;align-items:center;flex-wrap:wrap;gap:2px}
+  .rlink .b{font-size:12.5px;color:var(--dim);margin-top:2px}
+  .src{margin-left:6px;font-family:var(--mono);font-size:9px;font-weight:400;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);background:var(--label);border:1px solid var(--border-2);border-radius:4px;padding:1px 6px}
+  .rlink .arw{margin-left:auto;color:var(--faint);flex:none;transition:.16s var(--ease)}
+  .rlink:hover .arw{color:var(--accent);transform:translateX(2px)}
+
+  /* Program chips */
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--ink);background:var(--bg-soft);border:1px solid var(--border);border-radius:100px;padding:7px 14px;text-decoration:none;transition:.15s var(--ease)}
+  .chip svg{color:var(--accent);flex:none}
+  .chip:hover{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 10%,var(--bg-soft))}
+
+  /* Sections */
+  section.blk{padding:80px 0}
+  .sec-h{text-align:center;margin:0 auto 8px;max-width:660px}
+  .sec-h .kick{font-family:var(--mono);font-size:11.5px;font-weight:400;letter-spacing:.14em;text-transform:uppercase;color:var(--blue-2)}
+  .sec-h h2{font-size:38px;font-weight:600;letter-spacing:-.03em;margin:12px 0 12px}
+  .sec-h p{color:var(--dim);font-size:16.5px;line-height:1.55;margin:0 auto}
+  @media(max-width:760px){section.blk{padding:56px 0}.sec-h h2{font-size:28px}}
+
+  /* Tabs */
+  .tabs-wrap{text-align:center}
+  .tabs{display:inline-flex;gap:4px;margin:30px 0 28px;padding:4px;background:var(--bg-soft);border:1px solid var(--border);border-radius:8px}
+  .tab{padding:9px 20px;border-radius:5px;border:none;background:transparent;font-weight:600;font-size:14px;color:var(--dim);cursor:pointer;font-family:inherit;transition:.18s var(--ease)}
+  .tab:hover{color:var(--ink)}
+  .tab.on{background:var(--blue);color:#fff}
+
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:14px}
+  .card{text-align:left;border:1px solid var(--border);border-radius:var(--r-lg);padding:22px;background:var(--card);cursor:pointer;transition:transform .18s var(--ease),box-shadow .18s var(--ease),border-color .18s var(--ease);position:relative;overflow:hidden}
+  .card:before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:var(--accent);opacity:0;transition:opacity .18s var(--ease)}
+  .card:hover{border-color:var(--accent);transform:translateY(-4px);box-shadow:var(--shadow)}
+  .card:hover:before{opacity:1}
+  .card .ic{width:44px;height:44px;border-radius:9px;margin-bottom:15px}
+  .card h3{margin:0 0 7px;font-size:17px;font-weight:600;letter-spacing:-.01em}
+  .card p{margin:0;font-size:13.5px;color:var(--dim);line-height:1.5}
+  .card .more{margin-top:16px;font-size:13px;font-weight:600;color:var(--blue-2);display:inline-flex;align-items:center;gap:5px;transition:gap .18s var(--ease)}
+  .card:hover .more{gap:8px}
+
+  /* Modal */
+  .ov{position:fixed;inset:0;background:rgba(0,0,0,.66);backdrop-filter:blur(5px);z-index:100;display:flex;align-items:flex-start;justify-content:center;padding:44px 20px;overflow-y:auto;animation:fade .2s var(--ease)}
+  @keyframes fade{from{opacity:0}to{opacity:1}}
+  .modal{background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);max-width:720px;width:100%;box-shadow:var(--shadow-lg);animation:pop .24s var(--ease);margin:auto}
+  @keyframes pop{from{opacity:0;transform:translateY(14px) scale(.985)}to{opacity:1;transform:none}}
+  .modal .x{position:absolute;top:15px;right:15px;width:34px;height:34px;border-radius:8px;background:rgba(20,20,26,.72);backdrop-filter:blur(6px);border:1px solid var(--border-2);cursor:pointer;color:var(--dim);display:grid;place-items:center;z-index:2;transition:.15s var(--ease)}
+  .modal .x:hover{background:var(--bg-soft);color:var(--ink)}
+  .modal-inner{position:relative}
+
+  /* Programs strip */
+  .spiral{background:var(--bg-soft);border:1px solid var(--border);border-radius:var(--r-lg);padding:34px 30px;margin-top:8px}
+  .flow{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px;margin-bottom:28px}
+  .stage{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);background:var(--card);border:1px solid var(--border);border-radius:6px;padding:7px 14px}
+  .flow .ar{color:var(--blue-2);display:grid;place-items:center}
+  .prog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+  .prog{display:block;text-decoration:none;background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:16px 17px;transition:transform .16s var(--ease),box-shadow .16s var(--ease),border-color .16s var(--ease)}
+  .prog:hover{border-color:var(--accent);transform:translateY(-3px)}
+  .prog .nm{font-weight:600;font-size:14.5px;display:flex;align-items:center;gap:9px;letter-spacing:-.01em}
+  .prog .nm svg{color:var(--blue-2);flex:none}
+  .prog .st{font-family:var(--mono);font-size:9px;font-weight:400;text-transform:uppercase;letter-spacing:.08em;color:#3bd67e;margin-left:auto;background:rgba(59,214,126,.12);padding:3px 7px;border-radius:4px}
+  .prog .st.prop{color:#b79bff;background:rgba(139,92,246,.14)}
+  .prog .dc{font-size:12.5px;color:var(--dim);margin-top:7px;line-height:1.45}
+
+  /* Ship strip + footer */
+  .ship{margin-top:26px;text-align:center;border-top:1px dashed var(--border-2);padding-top:26px}
+  .ship-h{margin:0 0 14px;font-size:14.5px;font-weight:500;color:var(--dim);letter-spacing:-.01em}
+  footer.site{border-top:1px solid var(--border);padding:52px 0 34px;margin-top:76px;color:var(--dim);font-size:14px;background:var(--bg-soft)}
+  .foot-top{display:grid;grid-template-columns:1.1fr 2.4fr;gap:40px}
+  @media(max-width:820px){.foot-top{grid-template-columns:1fr;gap:32px}}
+  .foot-brand img{height:22px;margin-bottom:14px;display:block;filter:invert(1) brightness(1.9)}
+  .foot-brand p{margin:0 0 16px;font-size:13px;color:var(--dim);line-height:1.55;max-width:280px}
+  .foot-social{display:flex;gap:9px}
+  .foot-social a{width:36px;height:36px;border-radius:8px;border:1px solid var(--border);display:grid;place-items:center;color:var(--dim);background:var(--card);transition:.15s var(--ease)}
+  .foot-social a:hover{color:#fff;border-color:var(--accent);background:var(--accent);transform:translateY(-1px)}
+  .foot-cols{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+  @media(max-width:820px){.foot-cols{grid-template-columns:repeat(2,1fr);gap:28px 18px}}
+  @media(max-width:460px){.foot-cols{grid-template-columns:1fr}}
+  .foot-col{display:flex;flex-direction:column;gap:11px}
+  .foot-h{font-family:var(--mono);font-size:10.5px;font-weight:400;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+  .foot-col a{font-size:13.5px;color:var(--dim);text-decoration:none;transition:.15s var(--ease)}
+  .foot-col a:hover{color:var(--ink)}
+  .foot-bottom{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center;margin-top:38px;padding-top:20px;border-top:1px solid var(--border);font-size:12px;color:var(--faint)}
+  .foot-note{max-width:560px}
+
+  /* Hero — left-aligned, with Ask-AI bar + X line-art (design-team layout) */
+  .hero{text-align:left}
+  .hero-grid{display:grid;grid-template-columns:1.12fr .88fr;gap:36px;align-items:center}
+  @media(max-width:880px){.hero-grid{grid-template-columns:1fr}.hero-art{display:none}}
+  .hero-copy{max-width:600px}
+  h1.big{margin:0 0 20px}
+  .askai{margin-top:28px;display:flex;align-items:center;gap:11px;width:100%;max-width:460px;background:var(--bg-soft);border:1px solid var(--border-2);border-radius:10px;padding:14px 16px;color:var(--dim);text-decoration:none;font-size:14.5px;transition:.16s var(--ease)}
+  .askai svg{color:var(--blue-2);flex:none}
+  .askai .askai-key{margin-left:auto;color:var(--faint);font-family:var(--mono);font-size:13px}
+  .askai:hover{border-color:var(--blue-2);color:var(--ink)}
+  .hero-art{display:grid;place-items:center}
+  .xart{width:100%;max-width:320px;height:auto;filter:drop-shadow(0 0 26px color-mix(in srgb,var(--accent) 45%,transparent));animation:floaty 9s ease-in-out infinite}
+  @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
+  /* Journey selector */
+  .journey-head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:18px}
+  .journey-head h2{margin:0;font-size:27px;font-weight:600;letter-spacing:-.025em}
+  .pills{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+  @media(max-width:900px){.pills{grid-template-columns:repeat(3,1fr)}}
+  @media(max-width:560px){.pills{grid-template-columns:repeat(2,1fr)}}
+  .pill{position:relative;text-align:left;border:1px solid var(--border);border-radius:10px;background:var(--card);padding:16px 15px;cursor:pointer;transition:transform .18s var(--ease),border-color .18s var(--ease),box-shadow .18s var(--ease);color:var(--ink)}
+  .pill:hover{border-color:var(--blue-2);transform:translateY(-2px)}
+  .pill-ic{display:grid;place-items:center;width:32px;height:32px;border-radius:8px;background:var(--callout);border:1px solid var(--border-2);color:var(--blue-2);margin-bottom:12px}
+  .pill-tt{display:block;font-weight:600;font-size:14.5px;letter-spacing:-.01em}
+  .pill-ds{display:block;font-size:12px;color:var(--dim);margin-top:3px;line-height:1.35}
+  .pill.on{border-color:transparent;background:linear-gradient(150deg,#3d3dff,#1616d6);box-shadow:0 14px 34px rgba(44,44,255,.4)}
+  .pill.on .pill-ic{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.3);color:#fff}
+  .pill.on .pill-tt{color:#fff}
+  .pill.on .pill-ds{color:rgba(255,255,255,.82)}
+
+  /* Experience → dimension step (prominent, clearly a required choice) */
+  .dims{margin-top:24px;padding:18px;border:1px solid var(--border);border-left:2px solid var(--blue);border-radius:10px;background:color-mix(in srgb,var(--blue) 5%,var(--card));animation:rise .3s var(--ease)}
+  .dims-q{display:flex;align-items:center;gap:10px;font-size:15.5px;font-weight:600;color:var(--ink);margin-bottom:14px}
+  .dims-step{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:var(--blue);padding:3px 8px;border-radius:5px}
+  .dims-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  @media(max-width:640px){.dims-row{grid-template-columns:1fr}}
+  .dim{display:flex;align-items:center;gap:11px;text-align:left;border:1px solid var(--border-2);background:var(--bg-soft);color:var(--ink);border-radius:9px;padding:13px 14px;cursor:pointer;transition:transform .15s var(--ease),border-color .15s var(--ease)}
+  .dim:hover{border-color:var(--blue-2);transform:translateY(-2px)}
+  .dim-ic{display:grid;place-items:center;width:34px;height:34px;border-radius:8px;background:var(--callout);border:1px solid var(--border-2);color:var(--blue-2);flex:none}
+  .dim-tt{display:block;font-weight:600;font-size:14px;letter-spacing:-.01em}
+  .dim-ds{display:block;font-size:11.5px;color:var(--dim);margin-top:1px;line-height:1.3}
+  .dim.on{border-color:var(--blue-2);background:color-mix(in srgb,var(--blue) 16%,var(--bg-soft));box-shadow:0 0 0 2px rgba(44,44,255,.3)}
+  .dim.on .dim-ic{background:var(--blue);color:#fff;border-color:var(--blue-2)}
+
+  /* Second-level options */
+  .opt-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:14px}
+  .opt2{display:flex;align-items:center;gap:12px;text-align:left;border:1px solid var(--border);background:var(--card);border-radius:9px;padding:12px 14px;cursor:pointer;transition:transform .16s var(--ease),border-color .16s var(--ease);color:var(--ink)}
+  .opt2:hover{border-color:var(--blue-2);transform:translateY(-2px)}
+  .opt2 .ic{display:grid;place-items:center;width:36px;height:36px;border-radius:8px;background:var(--callout);border:1px solid var(--border-2);color:var(--blue-2);flex:none}
+  .opt2 .ttl{font-weight:600;font-size:14px;letter-spacing:-.01em}
+  .opt2.sel{border-color:var(--blue-2);background:linear-gradient(180deg,var(--callout),var(--card));box-shadow:0 0 0 3px rgba(44,44,255,.18)}
+  .opt2.sel .ic{background:var(--blue);color:#fff;border-color:var(--blue-2)}
+  .journey .result{padding:22px 0 0}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" data-presets="react">
+const { useState, useEffect } = React;
+
+/* ---------------- ICONS ----------------
+   A single cohesive line-icon set (24px grid, 1.7 stroke) plus a few
+   monochrome brand marks. No emoji anywhere — every glyph is a real SVG. */
+const ICONS = {
+  sprout:(<><path d="M7 20h10"/><path d="M12 20v-9"/><path d="M12 13C12 10 9.7 8 6.5 8 6.5 11 8.8 13 12 13Z"/><path d="M12 11c0-3 2.3-5 5.5-5 0 3-2.3 5-5.5 5Z"/></>),
+  blocks:(<><rect x="4" y="10" width="10" height="10" rx="1.6"/><path d="M10 10V6a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-4"/></>),
+  building:(<><path d="M4 21h16"/><path d="M6 21V5a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v16"/><path d="M14 21V10h3a1 1 0 0 1 1 1v10"/><path d="M9 8h2M9 12h2M9 16h2"/></>),
+  user:(<><circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.6 3.1-6.2 7-6.2s7 2.6 7 6.2"/></>),
+  coins:(<><circle cx="8" cy="8" r="6"/><path d="M18.1 10.4A6 6 0 1 1 10.3 18"/><path d="M7 6h1v4"/><path d="m16.7 13.9.7.7-2.8 2.8"/></>),
+  cap:(<><path d="M2 9l10-4.5L22 9l-10 4.5L2 9Z"/><path d="M6 11v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5"/><path d="M22 9v5.5"/></>),
+  cpu:(<><rect x="6" y="6" width="12" height="12" rx="2.5"/><rect x="9.5" y="9.5" width="5" height="5" rx="1.2"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/></>),
+  swap:(<><path d="M4 9h13l-3.2-3.2"/><path d="M20 15H7l3.2 3.2"/></>),
+  id:(<><rect x="3" y="5" width="18" height="14" rx="2.5"/><circle cx="9" cy="11" r="2.2"/><path d="M5.8 16c.5-1.7 1.8-2.6 3.2-2.6s2.7.9 3.2 2.6"/><path d="M15 10h3.5M15 13.5h3.5"/></>),
+  health:(<><rect x="4" y="4" width="16" height="16" rx="4.5"/><path d="M12 8.5v7M8.5 12h7"/></>),
+  package:(<><path d="M12 2.6 20.5 7 12 11.4 3.5 7 12 2.6Z"/><path d="M3.5 7v10L12 21.4 20.5 17V7"/><path d="M12 11.4V21.4"/><path d="M7.7 4.8 16.3 9.2"/></>),
+  gamepad:(<><rect x="2" y="7" width="20" height="10.5" rx="4.5"/><path d="M7 11v3M5.5 12.5h3"/><circle cx="15.5" cy="11.5" r="1"/><circle cx="18" cy="14" r="1"/></>),
+  ballot:(<><path d="M4 8.5 12 4.5l8 4-8 4-8-4Z"/><path d="M5 10.5V18a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-7.5"/><path d="m9.5 13.8 1.8 1.8L15 12"/></>),
+  image:(<><rect x="3" y="4" width="18" height="16" rx="2.5"/><circle cx="8.5" cy="9.5" r="1.7"/><path d="m4 18.5 5-5 3.5 3.5L16 14l4 4"/></>),
+  scroll:(<><path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H14l5 5v10.5A1.5 1.5 0 0 1 17.5 20h-11A1.5 1.5 0 0 1 5 18.5Z"/><path d="M14 3v5h5"/><path d="m9.5 12-1.7 1.7 1.7 1.7M13.5 12l1.7 1.7-1.7 1.7"/></>),
+  layout:(<><rect x="3" y="4.5" width="18" height="15" rx="2.5"/><path d="M3 9.5h18"/><path d="M8.5 9.5v10"/></>),
+  phone:(<><rect x="6" y="2.5" width="12" height="19" rx="3.5"/><path d="M10.5 18.5h3"/></>),
+  layers:(<><path d="M12 3 3 7.5l9 4.5 9-4.5L12 3Z"/><path d="m3 12 9 4.5L21 12"/><path d="m3 16.5 9 4.5 9-4.5"/></>),
+  shield:(<><path d="M12 3 5 5.8v5c0 4.4 3 7.6 7 9 4-1.4 7-4.6 7-9v-5L12 3Z"/><path d="m9.3 12 1.9 1.9 3.5-3.6"/></>),
+  rocket:(<><path d="M12 3c2.6 1.7 4 4.6 4 8.2 0 1-.2 2-.5 3H8.5c-.3-1-.5-2-.5-3C8 7.6 9.4 4.7 12 3Z"/><circle cx="12" cy="9.5" r="1.4"/><path d="M8.2 16.5 6 18.7M15.8 16.5 18 18.7M10 19l-1 2.5M14 19l1 2.5"/></>),
+  pen:(<><path d="M4 20.5 4.9 16 15.6 5.3a2 2 0 0 1 2.8 0l.3.3a2 2 0 0 1 0 2.8L9 19.1Z"/><path d="m14.5 6.5 3 3"/></>),
+  book:(<><path d="M12 6.5C10.5 5.2 8.5 4.5 5 4.5V18c3.5 0 5.5.7 7 2 1.5-1.3 3.5-2 7-2V4.5c-3.5 0-5.5.7-7 2Z"/><path d="M12 6.5V20"/></>),
+  bolt:(<><path d="M13 2.5 4.5 13.5H11l-1 8 8.5-11H12l1-8Z"/></>),
+  flame:(<><path d="M12 2.5c1.6 3 5 5.2 5 9.2a5 5 0 0 1-10 0c0-1.6.6-2.9 1.5-3.9.3 1.3 1.2 2.1 2.2 2.4C11.3 8 11.9 5.2 12 2.5Z"/></>),
+  hammer:(<><path d="M15.4 3.4 11.2 7.6l2.9 2.9 4.2-4.2a2.05 2.05 0 0 0-2.9-2.9Z"/><path d="m12.4 8.4-7.6 7.6a2 2 0 0 0 2.8 2.8l7.6-7.6"/></>),
+  compass:(<><circle cx="12" cy="12" r="9"/><path d="m14.5 9.5-1.5 5-5 1.5 1.5-5 5-1.5Z"/></>),
+  moon:(<><path d="M20.5 13.2A8.2 8.2 0 1 1 10.8 3.5a6.4 6.4 0 0 0 9.7 9.7Z"/><path d="M17.5 3v3.4M15.8 4.7h3.4"/></>),
+  lightbulb:(<><path d="M9.2 17.5h5.6"/><path d="M10 20.5h4"/><path d="M12 3a6 6 0 0 0-3.8 10.6c.7.6 1.1 1.5 1.1 2.4h5.4c0-.9.4-1.8 1.1-2.4A6 6 0 0 0 12 3Z"/></>),
+  star:(<><path d="m12 3 2.5 5.4 5.9.6-4.4 4 1.2 5.8L12 16.5 6.8 18.8 8 13l-4.4-4 5.9-.6L12 3Z"/></>),
+  arrowRight:(<><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></>),
+  close:(<><path d="M6 6 18 18M18 6 6 18"/></>),
+  refresh:(<><path d="M20 11a8 8 0 0 0-14-4.5L4 8"/><path d="M4 4v4h4"/><path d="M4 13a8 8 0 0 0 14 4.5L20 16"/><path d="M20 20v-4h-4"/></>),
+  check:(<><path d="M5 12.5l4.2 4.2L19 7"/></>),
+  wrench:(<><path d="M15 5.5a4 4 0 0 0-5.3 5.2L4 16.4V20h3.6l5.7-5.7A4 4 0 0 0 18.5 9l-2.4 2.4-1.6-.4-.4-1.6L16.5 7 15 5.5Z"/></>),
+  sparkle:(<><path d="M12 3l1.9 5.6L19.5 10l-5.6 1.4L12 17l-1.9-5.6L4.5 10l5.6-1.4L12 3Z"/><path d="M18.5 15.5l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7Z"/></>),
+  store:(<><path d="M4 9.5 5.2 5h13.6L20 9.5"/><path d="M5 9.5V19a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.5"/><path d="M4 9.5h16"/><path d="M9.5 20v-5h5v5"/></>),
+  github:(<><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.9a3.4 3.4 0 0 0-.9-2.6c3-.3 6.2-1.5 6.2-6.7A5.2 5.2 0 0 0 20 5.8 4.9 4.9 0 0 0 19.9 2s-1.2-.3-3.9 1.5a13.4 13.4 0 0 0-7 0C6.3 1.7 5.1 2 5.1 2A4.9 4.9 0 0 0 5 5.8a5.2 5.2 0 0 0-1.4 3.6c0 5.2 3.1 6.4 6.1 6.7A3.4 3.4 0 0 0 9 18.7V22"/></>),
+  discord:(<><circle cx="9" cy="12" r="1"/><circle cx="15" cy="12" r="1"/><path d="M7.5 7.8A15 15 0 0 1 12 7a15 15 0 0 1 4.5.8c1.6 2.2 2.4 4.9 2.5 8.2a12 12 0 0 1-3.6 1.8l-.8-1.4a9 9 0 0 1-5.2 0L8.6 17.8A12 12 0 0 1 5 16c.1-3.3.9-6 2.5-8.2Z"/></>),
+  youtube:(<><rect x="3" y="6" width="18" height="12" rx="4"/><path d="M10.5 9.5 15 12l-4.5 2.5Z"/></>),
+  xcom:(<><path d="M17.2 3H20l-6.1 7L21 21h-5.4l-4.2-5.5L6.4 21H3.6l6.6-7.5L3 3h5.5l3.8 5.1L17.2 3Z"/></>),
+  code:(<><path d="M8.5 8 4.5 12l4 4"/><path d="M15.5 8l4 4-4 4"/><path d="M13.5 6l-3 12"/></>),
+  server:(<><rect x="3.5" y="4" width="17" height="7" rx="2"/><rect x="3.5" y="13" width="17" height="7" rx="2"/><path d="M7 7.5h.01M7 16.5h.01"/><path d="M17.5 7.5h-3M17.5 16.5h-3"/></>),
+  spiral:(<><path d="M12 12a3 3 0 1 0 3 3 5 5 0 1 1-5-5 7 7 0 1 0 7 7"/></>),
+  ethereum:(<><path d="M12 2.5 6 12l6 3.4L18 12 12 2.5Z"/><path d="m6 13.2 6 3.4 6-3.4-6 8.6-6-8.6Z" opacity=".55"/></>),
+  solana:(<><path d="M6.4 6h11l-2.5 2.5H3.9L6.4 6Z"/><path d="M6.4 10.8h11l-2.5 2.5H3.9l2.5-2.5Z"/><path d="M6.4 15.5h11L14.9 18H3.9l2.5-2.5Z"/></>),
+  cardano:(<><circle cx="12" cy="12" r="2.3"/><circle cx="12" cy="4.6" r="1.25"/><circle cx="12" cy="19.4" r="1.25"/><circle cx="5.3" cy="8.3" r="1.25"/><circle cx="18.7" cy="8.3" r="1.25"/><circle cx="5.3" cy="15.7" r="1.25"/><circle cx="18.7" cy="15.7" r="1.25"/></>),
+  bitcoin:(<><path d="M11.8 19.1c4.9.9 6.1-6 1.2-6.9m-1.2 6.9L5.9 18m5.9 1.1-.4 2m1.6-8.9c4.9.9 6.1-6 1.2-6.9m-1.2 6.9L7.9 10.5m5.6-6.4L8.2 5m5.9 1 .4-2M7.5 20.4 10.6 2.6"/></>),
+  xrp:(<><path d="M4 5.5c2.6 3.7 4.9 5.3 8 5.3s5.4-1.6 8-5.3"/><path d="M4 18.5c2.6-3.7 4.9-5.3 8-5.3s5.4 1.6 8 5.3"/></>),
+};
+const FILLED = new Set(["ethereum","solana","cardano","xcom"]);
+function Icon({name, size=22}){
+  const glyph = ICONS[name];
+  if(!glyph) return null;
+  const filled = FILLED.has(name);
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24"
+      fill={filled?"currentColor":"none"} stroke={filled?"none":"currentColor"}
+      strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      {glyph}
+    </svg>
+  );
+}
+
+/* ---------------- REACTIVE BACKDROP ----------------
+   A living, low-key canvas: soft color blobs + drifting motes that ease toward
+   the accent of whatever path the developer is exploring. Pure canvas, no libs. */
+const AccentCtx = React.createContext(() => {});
+const hexToRgb = (hex) => {
+  const n = parseInt(hex.replace("#",""),16);
+  return {r:(n>>16)&255, g:(n>>8)&255, b:n&255};
+};
+const mix = (a,b,t) => ({r:a.r+(b.r-a.r)*t, g:a.g+(b.g-a.g)*t, b:a.b+(b.b-a.b)*t});
+const rgba = (c,a) => `rgba(${c.r|0},${c.g|0},${c.b|0},${a})`;
+
+function Backdrop({accent}){
+  const ref = React.useRef(null);
+  const target = React.useRef(hexToRgb(accent||DEFAULT_ACCENT));
+  const cur = React.useRef({...target.current});
+  React.useEffect(()=>{ target.current = hexToRgb(accent||DEFAULT_ACCENT); },[accent]);
+  React.useEffect(()=>{
+    const cv = ref.current, ctx = cv.getContext("2d");
+    const dpr = Math.min(window.devicePixelRatio||1, 2);
+    const WHITE = {r:255,g:255,b:255}, VIOLET = {r:120,g:60,b:220};
+    let raf, w=1, h=1, t=0;
+    const blobs = [{x:.16,y:.10,r:.46,ph:0.0,sp:.55},{x:.85,y:.22,r:.52,ph:1.9,sp:.42},{x:.52,y:.82,r:.6,ph:3.4,sp:.5}];
+    const motes = Array.from({length:44},()=>({x:Math.random(),y:Math.random(),z:.3+Math.random()*.7,s:.4+Math.random()*.8}));
+    const resize=()=>{ w=cv.clientWidth; h=cv.clientHeight; cv.width=w*dpr; cv.height=h*dpr; ctx.setTransform(dpr,0,0,dpr,0,0); };
+    resize(); window.addEventListener("resize",resize);
+    const loop=()=>{
+      t+=0.006;
+      cur.current = {
+        r:cur.current.r+(target.current.r-cur.current.r)*0.045,
+        g:cur.current.g+(target.current.g-cur.current.g)*0.045,
+        b:cur.current.b+(target.current.b-cur.current.b)*0.045,
+      };
+      const c = cur.current;
+      const cols = [c, mix(c,WHITE,.5), mix(c,VIOLET,.55)];
+      ctx.clearRect(0,0,w,h);
+      blobs.forEach((b,i)=>{
+        const bx=(b.x+Math.sin(t*b.sp+b.ph)*0.05)*w;
+        const by=(b.y+Math.cos(t*b.sp*0.9+b.ph)*0.05)*h;
+        const rad=b.r*Math.max(w,h), col=cols[i];
+        const g=ctx.createRadialGradient(bx,by,0,bx,by,rad);
+        g.addColorStop(0,rgba(col,0.20)); g.addColorStop(1,rgba(col,0));
+        ctx.fillStyle=g; ctx.fillRect(bx-rad,by-rad,rad*2,rad*2);
+      });
+      motes.forEach(d=>{
+        d.y-=0.00022*d.z; if(d.y<-0.02){ d.y=1.02; d.x=Math.random(); }
+        ctx.beginPath(); ctx.fillStyle=rgba(mix(c,WHITE,.55),0.10+d.z*0.16);
+        ctx.arc(d.x*w,d.y*h,d.s*d.z*1.3,0,Math.PI*2); ctx.fill();
+      });
+      raf=requestAnimationFrame(loop);
+    };
+    loop();
+    return ()=>{ cancelAnimationFrame(raf); window.removeEventListener("resize",resize); };
+  },[]);
+  return <canvas className="backdrop" ref={ref} aria-hidden="true" />;
+}
+
+/* ---------------- DATA ---------------- */
+/* Canonical resource registry — every URL verified (see .claude/skills/midnight-resource-map).
+   Keep this the single source of truth; refresh via that skill's procedure. */
+const LINKS = {
+  // Getting started
+  whatIs:   {a:"What is Midnight?", b:"The 60-second overview of the network", url:"https://docs.midnight.network"},
+  devhub:   {a:"Developer Hub", b:"The front door for builders", url:"https://midnight.network/developer-hub"},
+  academy:  {a:"Developer Academy", b:"Free, hands-on ZK & Compact courses (Academy 2.0)", url:"https://academy.midnight.network"},
+  install:  {a:"Install the toolchain", b:"Compact CLI, proof server & local stack", url:"https://docs.midnight.network/getting-started/installation"},
+  quick:    {a:"Quickstart: scaffold a dApp", b:"npx create-mn-app → running in minutes", url:"https://docs.midnight.network/getting-started/quickstart"},
+  scaffold: {a:"create-mn-app", b:"Scaffolds contract + CLI + wallet, prewired", url:"https://github.com/midnightntwrk/create-mn-app"},
+  hello:    {a:"Hello World tutorial", b:"Your first Compact contract, deployed", url:"https://docs.midnight.network/getting-started/hello-world"},
+  zealy:    {a:"Earn while you learn (Zealy)", b:"Builder quests, XP, and rewards", url:"https://zealy.io/cw/midnightnetwork"},
+
+  // Compact language & concepts
+  compact:  {a:"Compact language", b:"The smart-contract language for private logic", url:"https://docs.midnight.network/compact"},
+  writing:  {a:"Write your first contract", b:"ledger, circuit & witness, step by step", url:"https://docs.midnight.network/compact/reference/writing"},
+  compactRef:{a:"Compact language reference", b:"Full syntax, types & semantics", url:"https://docs.midnight.network/compact/reference/compact-reference"},
+  disclosure:{a:"Explicit disclosure", b:"How disclose() enforces what stays private", url:"https://docs.midnight.network/compact/reference/explicit-disclosure"},
+  concepts: {a:"Zero-knowledge proofs", b:"The privacy model, explained", url:"https://docs.midnight.network/concepts/zero-knowledge-proofs"},
+  privacyPatterns:{a:"Keeping data private", b:"Commitments, nullifiers & Merkle patterns", url:"https://docs.midnight.network/concepts/how-midnight-works/keeping-data-private"},
+  security: {a:"Security & best practices", b:"Adversarial testing patterns for contracts", url:"https://docs.midnight.network/guides/security-best-practices"},
+
+  // SDKs & tooling
+  midjs:    {a:"Midnight.js dApp SDK", b:"Deploy, call circuits & manage private state", url:"https://docs.midnight.network/sdks/official/midnight-js"},
+  dappConnector:{a:"DApp Connector API", b:"Connect Lace & other wallets to your dApp", url:"https://docs.midnight.network/api-reference/dapp-connector"},
+  walletSdk:{a:"Wallet SDK", b:"Build wallet flows: keys, tx, balances", url:"https://docs.midnight.network/sdks/official/wallet-developer-guide"},
+  networks: {a:"Networks & environments", b:"Endpoints, faucets & how to switch", url:"https://docs.midnight.network/guides/networks-and-environments"},
+  localdev: {a:"midnight-local-dev", b:"Run node + indexer + proof server locally", url:"https://github.com/midnightntwrk/midnight-local-dev"},
+  nodeDocker:{a:"Midnight node (Docker)", b:"Run a Midnight node with Docker", url:"https://github.com/midnightntwrk/midnight-node-docker"},
+  indexer:  {a:"Midnight indexer", b:"Index chain data for your dApp", url:"https://github.com/midnightntwrk/midnight-indexer"},
+  oz:       {a:"OpenZeppelin for Compact", b:"Token & access-control modules in Compact", url:"https://github.com/OpenZeppelin/compact-contracts"},
+  playground:{a:"Compact playground", b:"Write & compile Compact in the browser", url:"https://midnight-playground-one.vercel.app/"},
+  edda:     {a:"Edda starter template", b:"Full-stack monorepo: contract + React + CLI", url:"https://github.com/eddalabs/midnight-starter-template"},
+  nightforge:{a:"Nightforge CLI", b:"Compile, deploy & operate Compact contracts", url:"https://github.com/cadalt0/NIGHTFORGE"},
+
+  // Partner tooling
+  midnames: {a:"Midnames (MidNS)", b:".night names, DIDs & selective-disclosure identity", url:"https://docs.midnight.network/sdks/community/midnames"},
+  viaBridge:{a:"VIA Labs bridge", b:"Contract-to-contract messaging across 140+ chains", url:"https://vialabs.io/"},
+  expert:   {a:"Midnight Expert", b:"Hire vetted Midnight builders for your project", url:"https://midnightntwrk.expert/"},
+  oneAM:    {a:"1AM — AI dApp builder", b:"Prompt → Compact contract + React front end", url:"https://1am.xyz/"},
+  kuira:    {a:"Kuira Android SDK", b:"Native mobile Midnight integration", url:"https://kuiralabs.github.io/kuira-sdk-android/"},
+
+  // EffectStream (cross-chain)
+  effect:   {a:"EffectStream — multi-chain engine", b:"One state machine across EVM, Midnight, BTC, Cardano…", url:"https://github.com/effectstream/effectstream"},
+  effectEvm:{a:"EVM + Midnight template", b:"ERC-721 sync, ZK contracts & a React front end", url:"https://github.com/effectstream/effectstream/tree/v-next/templates/evm-midnight-v2"},
+  effectCardano:{a:"EVM + Cardano template", b:"Cross-chain dApp starter with Cardano", url:"https://github.com/effectstream/effectstream/tree/v-next/templates/evm-cardano"},
+  effectSolana:{a:"Solana starter template", b:"Bring Solana state into Midnight logic", url:"https://github.com/effectstream/effectstream/tree/v-next/templates/solana-starter"},
+  effectBitcoin:{a:"NIGHT + Bitcoin template", b:"Bitcoin-aware Midnight dApp starter", url:"https://github.com/effectstream/effectstream/tree/v-next/templates/night-bitcoin-v2"},
+  effectGames:{a:"EffectStream on-chain games", b:"Chess, hex-battle, dice & RPS to fork", url:"https://github.com/effectstream/effectstream/tree/v-next/templates"},
+  effectNft:{a:"NFT pre-order / launchpad template", b:"Drops & pre-orders — great for IP & goods", url:"https://github.com/effectstream/effectstream/tree/v-next/templates/projected-nft-preorder"},
+  effectToken:{a:"Multi-chain token transfer template", b:"Move value across chains into Midnight", url:"https://github.com/effectstream/effectstream/tree/v-next/templates/multi-chain-token-transfer"},
+  effectAi:{a:"Shinkai AI-agent template", b:"Agent-driven quests & actions on Midnight", url:"https://github.com/effectstream/effectstream/tree/v-next/templates/shinkai-v2"},
+
+  // Examples
+  examples: {a:"Examples overview", b:"Every example mapped to what it teaches", url:"https://docs.midnight.network/examples"},
+  exContracts:{a:"Contract examples", b:"Feature-focused Compact contracts", url:"https://docs.midnight.network/examples/contracts"},
+  exBboard: {a:"Bulletin board dApp", b:"ZK identity + access control, full stack", url:"https://github.com/midnightntwrk/example-bboard"},
+  exZkloan: {a:"ZK Loan dApp", b:"Prove loan eligibility; credit data stays local", url:"https://github.com/midnightntwrk/example-zkloan"},
+  exKitties:{a:"Midnight Kitties (NFT dApp)", b:"Full-stack NFT app on the token library", url:"https://github.com/midnightntwrk/example-kitties"},
+  exBattleship:{a:"Battleship dApp", b:"Hidden-board state machine with private moves", url:"https://github.com/midnightntwrk/example-battleship"},
+  exLeaderboard:{a:"Leaderboard dApp", b:"React + Lace with in-browser ZK proving", url:"https://github.com/midnightntwrk/midnight-leaderboard"},
+  exElection:{a:"Election contract", b:"Private voting with Set/Map & dApp keys", url:"https://docs.midnight.network/examples/contracts/election"},
+  exAuction:{a:"Private reserve auction", b:"Hide reserve prices; sealed-bid pattern", url:"https://docs.midnight.network/examples/contracts/private-reserve-auction"},
+  exToken:  {a:"Token transfers", b:"Mint, send & receive shielded/unshielded", url:"https://docs.midnight.network/examples/contracts/token-transfers"},
+  exGuestlist:{a:"Private guest list", b:"Set ops & the privacy boundary in practice", url:"https://docs.midnight.network/examples/contracts/private-guest-list"},
+  awesome:  {a:"Awesome Midnight dApps", b:"Curated repos, tools & templates", url:"https://github.com/midnightntwrk/midnight-awesome-dapps"},
+
+  // Deploy & verify
+  faucet:   {a:"Preprod faucet", b:"Get tNIGHT to fund your test wallet", url:"https://faucet.preprod.midnight.network"},
+  explorer: {a:"Preprod explorer", b:"Confirm your live transaction on-chain", url:"https://preprod.midnightexplorer.com"},
+  lace:     {a:"Lace wallet (Midnight)", b:"The browser wallet your users connect", url:"https://www.lace.io/midnight"},
+
+  // Ecosystem, community & content
+  ecosystem:{a:"Ecosystem overview & use cases", b:"What people are building and why", url:"https://midnight.network/ecosystem"},
+  catalog:  {a:"Ecosystem Catalog", b:"Live projects & integration partners", url:"https://midnight.network/ecosystem-catalog"},
+  rfs:      {a:"Request for Startups", b:"Vetted build prompts by vertical", url:"https://midnight.network/request-for-start-ups"},
+  blog:     {a:"Dev diaries & blog", b:"How the network is being built, in the open", url:"https://midnight.network/blog"},
+  forum:    {a:"Developer forum", b:"Ask questions & compare notes with builders", url:"https://forum.midnight.network"},
+  devhang:  {a:"Fireside Dev Hang", b:"Weekly live builder session on YouTube", url:"https://www.youtube.com/@midnight.network"},
+  contrib:  {a:"Contributor Hub & content bounties", b:"Get paid to write, record, and explain", url:"https://midnight.network/blog"},
+
+  // Programs & funding
+  aliit:    {a:"The Aliit — technical fellowship", b:"Rolling admissions; depth-first contributor program", url:"https://midnight.network/aliit"},
+  nightsky: {a:"Night Sky Accelerator", b:"The mature, revenue-stage cohort", url:"https://midnight.network/night-sky-accelerator"},
+  catalyst: {a:"Project Catalyst", b:"Open-source grants from Cardano's treasury", url:"https://projectcatalyst.io"},
+  buildclub:{a:"Build Club", b:"Pre-seed accelerator: PoC → production", url:"https://midnight.network/build-club"},
+  foundation:{a:"Midnight Foundation", b:"The hub for ecosystem programs & grants", url:"https://midnight.foundation"},
+
+  // Bring outside data in (attestations / oracles)
+  attest:   {a:"Attestation API tutorial", b:"Feed signed off-chain data into a ZK circuit", url:"https://docs.midnight.network/tutorials/zk-loan/attestation-api"},
+
+  // Ecosystem projects — real repos to fork across verticals
+  awesomeList:{a:"Awesome Midnight dApps", b:"The full curated index of ecosystem repos", url:"https://github.com/midnightntwrk/midnight-awesome-dapps"},
+  rwaRepo:  {a:"Brick Towers RWA", b:"Privacy-first real-world-asset trading, shielded", url:"https://github.com/bricktowers/midnight-rwa"},
+  statera:  {a:"Statera Protocol", b:"Over-collateralized private stablecoin", url:"https://github.com/statera-protocol/statera-protocol-midnight"},
+  lunarswap:{a:"LunarSwap DEX (OpenZeppelin)", b:"UTXO-based DEX + starter dApps to fork", url:"https://github.com/OpenZeppelin/midnight-apps"},
+  sealedbid:{a:"Sealed-bid auction dApp", b:"Bids stay private until reveal (Compact + ZK)", url:"https://github.com/pplmaverick/midnight-private-auction"},
+  midnightzk:{a:"midnight-zk toolkit", b:"The zero-knowledge cryptography toolkit", url:"https://github.com/midnightntwrk/midnight-zk"},
+  ideaboard:{a:"dApp idea board", b:"Need an idea? Community-sourced build prompts", url:"https://github.com/midnightntwrk/dApp-idea-board"},
+
+  // AI-assisted building & community tools
+  prompts:  {a:"Midnight prompt library", b:"Prompts to build Midnight dApps with AI", url:"https://midnightprompts.lovable.app/"},
+  midskills:{a:"Midnight AI skills", b:"Agent skills for building on Midnight", url:"https://midskills.sevryn.xyz/"},
+  community:{a:"Community tools & SDKs", b:"Everything the ecosystem has built", url:"https://docs.midnight.network/sdks/community"},
+  city:     {a:"Midnight City", b:"Explore the ecosystem, mapped as a city", url:"https://midnight.city/"},
+  mips:     {a:"Improvement proposals (MIPs)", b:"Shape the protocol — the MIP process", url:"https://midnight.network/blog/improvement-proposal-process"},
+  hackathon:{a:"Hackathons", b:"Build fast, win prizes, ship with a cohort", url:"https://midnight.network/hackathon"},
+};
+
+/* Journey stages — resources are grouped and ordered so each developer is pointed
+   at the right tool at the right moment: understand it, build it, ship it, grow. */
+const STAGE = {
+  // Learn
+  whatIs:"learn", devhub:"learn", academy:"learn", concepts:"learn", compact:"learn",
+  writing:"learn", compactRef:"learn", disclosure:"learn", privacyPatterns:"learn",
+  hello:"learn", examples:"learn", exContracts:"learn", ecosystem:"learn",
+  catalog:"learn", security:"learn", playground:"learn",
+  // Build
+  install:"build", quick:"build", scaffold:"build", midjs:"build", dappConnector:"build",
+  walletSdk:"build", networks:"build", localdev:"build", oz:"build", effect:"build",
+  effectEvm:"build", effectCardano:"build", effectSolana:"build", effectBitcoin:"build",
+  effectGames:"build", effectNft:"build", effectToken:"build", effectAi:"build",
+  exBboard:"build", exZkloan:"build", exKitties:"build", exBattleship:"build",
+  exLeaderboard:"build", exElection:"build", exAuction:"build", exToken:"build",
+  exGuestlist:"build", lace:"build", midnames:"build", viaBridge:"build", expert:"build",
+  oneAM:"build", kuira:"build", nightforge:"build", edda:"build",
+  // Build (added)
+  attest:"build", awesomeList:"build", rwaRepo:"build", statera:"build",
+  lunarswap:"build", sealedbid:"build", midnightzk:"build", prompts:"build",
+  midskills:"build", community:"build",
+  // Ship
+  faucet:"ship", explorer:"ship", nodeDocker:"build", indexer:"build",
+  // Grow
+  rfs:"grow", aliit:"grow", nightsky:"grow", buildclub:"grow", catalyst:"grow",
+  foundation:"grow", zealy:"grow", devhang:"grow", blog:"grow", forum:"grow",
+  contrib:"grow", awesome:"grow", city:"grow", mips:"grow", hackathon:"grow",
+  ideaboard:"learn",
+};
+const STAGES = ["learn","build","ship","grow"];
+const STAGE_LABEL = {learn:"Learn the model", build:"Build it", ship:"Ship & verify", grow:"Go further"};
+
+// Reactive accent per path — recolors the ambient backdrop & result card
+const ACCENTS = {
+  ethereum:"#6373ff", cardano:"#0d3fff", solana:"#9945ff", bitcoin:"#f7931a",
+  xrp:"#12b6c9", student:"#0d1dff", new:"#0d1dff", funding:"#12b56b",
+  ai:"#7c3aed", defi:"#0ea5e9", identity:"#0d1dff", healthcare:"#e5484d",
+  supplychain:"#c2620f", gaming:"#d6409f", governance:"#3358e0", nfts:"#d6409f",
+  ip:"#c026d3", rwa:"#0f9d6e", experience:"#2C2CFF", deeper:"#8b5cf6", node:"#12b6c9",
+  smartcontract:"#0d1dff", frontend:"#8b5cf6", mobile:"#0ea5e9",
+  fullstack:"#0d1dff", security:"#0f9d6e", founder:"#f7931a", content:"#d6409f",
+};
+const DEFAULT_ACCENT = "#0d1dff";
+
+// helper: build resource objects from link keys, tagged with stage for grouping
+const P = (...keys) => keys.map(k => ({...LINKS[k], key:k, stage:STAGE[k]||"build"}));
+
+// group a link list by stage, preserving encounter order within each stage
+const groupByStage = (links) => {
+  const g = {learn:[],build:[],ship:[],grow:[]};
+  links.forEach(l => (g[l.stage]||g.build).push(l));
+  return g;
+};
+
+/* ---- Starting points (guided quiz step 1) ---- */
+const START = [
+  {id:"new",       ic:"sprout", ttl:"New to Midnight",     ds:"Just learning, a student, or new to Web3"},
+  {id:"experience",ic:"code",   ttl:"Have experience",     ds:"Built on another chain, industry, or role"},
+  {id:"deeper",    ic:"rocket", ttl:"Ready to go deeper",  ds:"Compact, ZK internals, and the Aliit"},
+  {id:"funding",   ic:"coins",  ttl:"Need funding",        ds:"Grants, accelerators, and programs"},
+  {id:"node",      ic:"server", ttl:"Node runner",         ds:"Run a node, indexer, or validator"},
+];
+
+// second-level dimensions when a developer "has experience"
+const DIMENSIONS = [
+  {id:"ecosystem", ic:"blocks",   ttl:"By ecosystem", ds:"Ethereum, Cardano, Solana, Bitcoin, XRP"},
+  {id:"industry",  ic:"building", ttl:"By industry",  ds:"AI, DeFi, identity, gaming, IP, RWA…"},
+  {id:"role",      ic:"user",     ttl:"By role",      ds:"Contract, front-end, mobile, security…"},
+];
+
+/* ---- Result / detail content ---- */
+const BEGINNER = {
+  id:"new", ic:"sprout", ttl:"Start here: your first win on Midnight",
+  blurb:"Understand what Midnight is, get the toolchain running, then ship a Hello World and a first dApp. Everything below is free and open — no gate on learning.",
+  links: P("whatIs","academy","playground","prompts","install","hello","scaffold"),
+  leads: ["academy","zealy","devhang"],
+};
+
+const ECOSYSTEMS = {
+  ethereum:{ic:"ethereum", ttl:"Coming from Ethereum / EVM",
+    blurb:"You know Solidity, wallets, and an EVM front-end. Midnight adds a private state layer: write shielded logic in Compact and keep the mental model you already have.",
+    map:[["Solidity","Compact"],["EVM opcodes","ZK circuits"],["ethers / wagmi","Midnight.js"]],
+    uc:["Shielded token balances & transfers","Compliant pools without doxxing users","Private order flow / sealed bids","Selective-disclosure KYC"],
+    links: P("effectEvm","effect","writing","midjs","exBboard","catalog"), leads:["academy","zealy","buildclub"]},
+  cardano:{ic:"cardano", ttl:"Coming from Cardano",
+    blurb:"Midnight is Cardano's privacy sidechain. You already know the ecosystem, Lace, and the eUTXO mindset — now add programmable confidentiality with NIGHT and DUST.",
+    map:[["Plutus / Aiken","Compact"],["Lace wallet","Lace + Midnight"],["ADA staking","NIGHT / DUST"]],
+    uc:["Private DeFi on top of Cardano liquidity","Identity & credentials with selective disclosure","Confidential governance & voting","Cross-chain private data via EffectStream"],
+    links: P("effectCardano","compact","midjs","exBboard","catalog","rfs"), leads:["academy","buildclub","nightsky"]},
+  solana:{ic:"solana", ttl:"Coming from Solana",
+    blurb:"You're used to speed and a Rust toolchain. Midnight brings privacy as a first-class primitive — prove things are true without publishing the data behind them.",
+    map:[["Anchor / Rust","Compact"],["SPL tokens","Shielded assets"],["web3.js","Midnight.js"]],
+    uc:["Private payments & confidential balances","Hidden-information games","Verifiable AI / data provenance","Sealed-bid marketplaces"],
+    links: P("effectSolana","compact","midjs","exBboard","examples","rfs"), leads:["academy","zealy","buildclub"]},
+  bitcoin:{ic:"bitcoin", ttl:"Coming from Bitcoin",
+    blurb:"You value sound money and minimal trust. Midnight extends that ethos to data: prove a claim — attendance, ownership, eligibility — while revealing nothing else.",
+    map:[["Script","Compact"],["UTXO","Shielded state"],["Custody","Selective disclosure"]],
+    uc:["Proof-of-reserve without exposing holdings","Private attestations & credentials","Cross-chain flows via EffectStream","Confidential membership proofs"],
+    links: P("effectBitcoin","whatIs","concepts","effect","catalog"), leads:["academy","zealy"]},
+  xrp:{ic:"xrp", ttl:"Coming from XRP / other chains",
+    blurb:"Whatever chain you hold or build on, Midnight is the privacy layer the multi-chain world plugs into. Bridge in with EffectStream and add confidentiality to what you already run.",
+    map:[["Your VM","Compact"],["Public ledger","Shielded state"],["Your SDK","Midnight.js"]],
+    uc:["Add private state to an existing app","Cross-chain private messaging & value","Compliant, privacy-preserving payments","Confidential data marketplaces"],
+    links: P("effect","viaBridge","effectEvm","compact","catalog"), leads:["academy","zealy","buildclub"]},
+  student:{ic:"cap", ttl:"New to Web3 / student",
+    blurb:"No prior chain experience needed. Start at the Academy, earn XP on Zealy as you go, and a completed cert plus a shipped project becomes a real portfolio credential.",
+    map:null,
+    uc:["Learn ZK & privacy from zero","Build a portfolio-worthy dApp","Earn certs that unlock bounties","Join a university club pathway"],
+    links: P("academy","zealy","install","hello","devhang"), leads:["academy","zealy","buildclub"]},
+};
+
+const INDUSTRIES = {
+  ai:{ic:"cpu", ttl:"AI on Midnight",
+    blurb:"Prove an AI model ran, or that data met a policy — without exposing the model, the prompt, or the user's data. Midnight is built for verifiable, privacy-preserving AI.",
+    uc:["Private inference attestation (prove a model ran correctly)","ZK data provenance for training sets","Confidential agent-to-agent payments","Model licensing with selective disclosure","Privacy-preserving data marketplaces"],
+    tools:"Compact policy circuits · Midnight.js · Shinkai + 1AM · Midnight prompt library · attestation API for signed off-chain data",
+    links: P("concepts","effectAi","oneAM","midskills","attest","rfs"), leads:["academy","buildclub","nightsky"]},
+  defi:{ic:"swap", ttl:"DeFi on Midnight",
+    blurb:"Bring confidentiality to markets: shielded balances, private order flow, and compliant pools where users prove eligibility without revealing their identity or holdings.",
+    uc:["Shielded balances & confidential transfers","Sealed-bid auctions & dark pools","KYC/AML compliance without doxxing","Private lending & credit scoring"],
+    tools:"Compact · Midnight.js · EffectStream for cross-chain liquidity",
+    links: P("statera","lunarswap","sealedbid","oz","attest","rfs"), leads:["academy","buildclub","nightsky"]},
+  identity:{ic:"id", ttl:"Identity on Midnight",
+    blurb:"Selective disclosure is the killer app: prove you're over 18, a citizen, or KYC'd once — reveal only the claim, never the underlying document.",
+    uc:["Reusable KYC / proof-of-personhood","Age & eligibility proofs","Verifiable credentials & attestations","Private, Sybil-resistant sign-in"],
+    tools:"Compact · Midnight.js · credential patterns in Examples",
+    links: P("exZkloan","midnames","attest","disclosure","compact","catalog"), leads:["academy","buildclub"]},
+  healthcare:{ic:"health", ttl:"Healthcare on Midnight",
+    blurb:"Share the proof, not the record. Patients consent, providers verify, and sensitive health data never leaves the user's control.",
+    uc:["Consent proofs & access control","Private health records & sharing","Clinical-trial data provenance","Insurance eligibility without full disclosure"],
+    tools:"Compact policy circuits · Midnight.js · selective disclosure",
+    links: P("exZkloan","attest","disclosure","concepts","rfs"), leads:["academy","buildclub"]},
+  supplychain:{ic:"package", ttl:"Supply chain on Midnight",
+    blurb:"Prove provenance and compliance without exposing suppliers, prices, or trade secrets to competitors on a public ledger.",
+    uc:["Provenance without revealing the supplier map","Private attestations & certifications","Confidential B2B settlement","Auditable-but-private compliance"],
+    tools:"Compact · EffectStream for multi-party data · Midnight.js",
+    links: P("effect","viaBridge","attest","privacyPatterns","rfs"), leads:["academy","buildclub"]},
+  gaming:{ic:"gamepad", ttl:"Gaming on Midnight",
+    blurb:"Hidden information is what makes games fun. Midnight gives you private state for cards, fog-of-war, and sealed moves that stay secret until reveal.",
+    uc:["Hidden-hand card & strategy games","Fog-of-war & private map state","Provably fair randomness","Sealed-bid in-game economies"],
+    tools:"Compact for private game state · Midnight.js · EffectStream game templates (chess, battles)",
+    links: P("exBattleship","exLeaderboard","effectGames","compact","examples"), leads:["academy","zealy"]},
+  governance:{ic:"ballot", ttl:"Governance on Midnight",
+    blurb:"Vote privately but verifiably: eligible voters prove membership and cast ballots no one can trace, while tallies stay auditable.",
+    uc:["Private, coercion-resistant voting","Eligibility proofs for DAOs","Anonymous but Sybil-resistant polls","Confidential treasury decisions"],
+    tools:"Compact · Midnight.js · membership-proof patterns",
+    links: P("exElection","privacyPatterns","compact","community","rfs"), leads:["academy","buildclub"]},
+  nfts:{ic:"image", ttl:"NFTs & ownership on Midnight",
+    blurb:"Own things privately. Prove you hold an asset to unlock gated content or vote, without publishing your wallet's whole collection.",
+    uc:["Private ownership & token-gating","Sealed-bid NFT auctions","Confidential royalties","Anonymous holder rewards"],
+    tools:"Compact · Midnight.js · Examples",
+    links: P("exKitties","sealedbid","oz","compact","awesomeList"), leads:["academy","zealy"]},
+  ip:{ic:"sparkle", ttl:"IP & creators on Midnight",
+    blurb:"Everything can carry an ownership layer — patents, designs, music, brands, even a jacket. Tokenize IP and physical goods with private ownership, provable authenticity, and royalties that never leak your terms.",
+    uc:["Tokenize IP: patents, designs, music & brands","Provenance & authenticity for physical goods and apparel","Private royalties & revenue splits","Sealed licensing with selective disclosure","Anti-counterfeit certificates you can verify but not dox"],
+    tools:"Compact · OpenZeppelin NonFungibleToken · EffectStream NFT/pre-order templates · Midnight.js",
+    links: P("effectNft","exKitties","oz","sealedbid","compact","catalog"), leads:["academy","buildclub","nightsky"]},
+  rwa:{ic:"store", ttl:"Real-world assets & commerce on Midnight",
+    blurb:"Bring real assets and commerce on-chain without publishing who owns what. Confidential ownership, private tickets and loyalty, and compliant settlement that proves the rules were followed — and nothing more.",
+    uc:["Tokenize real-world assets with private ownership","Confidential transfer & settlement","Private tickets, memberships & loyalty","Compliant RWA via selective disclosure","Cross-chain settlement with EffectStream & VIA Labs"],
+    tools:"Compact · EffectStream token transfer · VIA Labs bridge · Midnight.js",
+    links: P("rwaRepo","effectToken","viaBridge","attest","compact"), leads:["academy","buildclub"]},
+};
+
+const ROLES = {
+  smartcontract:{ic:"scroll", ttl:"Smart-contract developer",
+    blurb:"Compact is where you'll live — the language for private, provable logic. Start with the concepts, fork the examples, and grow toward the Aliit fellowship.",
+    uc:["Learn Compact & the ZK model","Fork reference contracts","Write & test shielded logic","Progress to exclusive Aliit bounties"],
+    tools:"Compact · proof server · local dev environment",
+    links: P("writing","playground","compactRef","oz","midnightzk","aliit"), leads:["academy","zealy","buildclub"]},
+  frontend:{ic:"layout", ttl:"Front-end / dApp developer",
+    blurb:"You'll wire React (or your framework) to shielded contracts with Midnight.js and the Lace wallet. The blockchain stays invisible to your users.",
+    uc:["Connect a wallet & submit proofs","Build dApp UIs on Midnight.js","Handle proof generation UX","Ship a polished first dApp"],
+    tools:"Midnight.js · Lace wallet · Quickstart",
+    links: P("quick","midjs","dappConnector","exLeaderboard","playground","lace"), leads:["academy","zealy","buildclub"]},
+  mobile:{ic:"phone", ttl:"Mobile developer",
+    blurb:"Bringing privacy proofs to phones has its own constraints — wallet integration, proof generation, and lightweight flows. Here's the SDK surface and tooling to know.",
+    uc:["Integrate a mobile wallet flow","Offload / manage proof generation","Selective disclosure on-device","Cross-platform dApp front ends"],
+    tools:"Midnight.js · Kuira Android SDK · wallet SDK · DApp Connector",
+    links: P("midjs","dappConnector","kuira","walletSdk","effect"), leads:["academy","buildclub"]},
+  fullstack:{ic:"layers", ttl:"Full-stack developer",
+    blurb:"End to end: Compact contract, proof server, and a dApp front end, all running locally first. The end-to-end tutorial and local dev repo are your fastest path.",
+    uc:["Run the whole stack locally","Contract → proof → UI, wired up","Deploy & verify on preprod","Ship a complete dApp"],
+    tools:"Compact · Midnight.js · local dev environment · proof server",
+    links: P("scaffold","edda","localdev","exBboard","midjs","explorer"), leads:["academy","zealy","buildclub"]},
+  security:{ic:"shield", ttl:"Security reviewer / auditor",
+    blurb:"Early teams need affordable review; auditors need deal flow. Build a track record through the audit program and the Aliit's technical testing pipeline.",
+    uc:["Claim mini-reviews for early teams","Build an on-platform track record","Feature-test ecosystem tooling","Qualify for higher-value work"],
+    tools:"Contributor Hub · audit program (proposed) · the Aliit",
+    links: P("security","disclosure","midnightzk","community","aliit"), leads:["buildclub","nightsky"]},
+  founder:{ic:"rocket", ttl:"Founder / team",
+    blurb:"Got an idea and a small team? Build Club takes you from proof of concept toward production with guidance and the right intros — then Night Sky for the strongest. Need hands? Midnight Expert connects you with vetted builders.",
+    uc:["Validate an idea against real use cases","PoC → production with guidance","Get GTM & product-market-fit help","Access grants & accelerators"],
+    tools:"Build Club · Night Sky · Request for Startups · Midnight Expert (hire builders)",
+    links: P("rfs","buildclub","nightsky","expert","catalyst"), leads:["buildclub","nightsky"]},
+  student:{ic:"cap", ttl:"Student / club member",
+    blurb:"Academy plus a shipped project is a concrete portfolio credential — and the entry to bounties and Build Club. Clubs get a dedicated pathway and co-marketing.",
+    uc:["Free, open Academy from zero","Earn XP & certs on Zealy","Ship a portfolio-worthy dApp","Bring a mini-hack to your club"],
+    tools:"Academy · Zealy · university program",
+    links: P("academy","zealy","hello","ideaboard","install"), leads:["academy","zealy","buildclub"]},
+  content:{ic:"pen", ttl:"Content creator / educator",
+    blurb:"Turn what you learn into tutorials, videos, and threads — and get paid for it. Content bounties are matched, and top pieces get amplified and folded into the Academy.",
+    uc:["Claim matched content bounties","Publish tutorials & walkthroughs","Present on the Dev Hang stream","Contribute to the Academy"],
+    tools:"Contributor Hub · content bounties · Fireside Dev Hang",
+    links: P("contrib","devhang","blog","awesomeList","academy"), leads:["academy","zealy"]},
+};
+
+const DEEPER = {
+  id:"deeper", ic:"rocket", ttl:"Go deeper on Midnight",
+  blurb:"You've shipped the basics — now master the internals. Go deep on Compact's disclosure model, the zero-knowledge machinery, the cryptography toolkit, and hardening — then earn a place in the Aliit.",
+  uc:["Master Compact & explicit disclosure","Understand ZK proofs & Kachina","Study production example contracts","Harden contracts with security patterns","Define standards in the Aliit fellowship"],
+  tools:"Compact reference · midnight-zk toolkit · concepts & Kachina · security best practices",
+  links: P("compactRef","concepts","privacyPatterns","midnightzk","exContracts","security","aliit","blog"),
+  leads:["aliit","nightsky"],
+};
+
+const NODE = {
+  id:"node", ic:"server", ttl:"Run Midnight infrastructure",
+  blurb:"Operate the network. Run a node with Docker, stand up an indexer, point your tooling at the right endpoints, and take it from a local stack to preprod and mainnet.",
+  uc:["Run a Midnight node with Docker","Stand up an indexer for your dApp","Spin up the full local stack","Configure the right network endpoints","Move from local → preprod → mainnet"],
+  tools:"midnight-node-docker · midnight-indexer · midnight-local-dev · networks & environments",
+  links: P("nodeDocker","indexer","localdev","networks","faucet","explorer"),
+};
+
+const FUNDING = {
+  id:"funding", ic:"coins", ttl:"Fund your build on Midnight",
+  blurb:"Whether you need a small PoC grant or a full accelerator with investment, there's a track for your stage. Programs are designed to build on each other.",
+  uc:["Open-source PoC grants (Catalyst)","Pre-seed accelerator support (Build Club)","Revenue-stage cohort (Night Sky)","Foundation-backed program funding"],
+  links: P("buildclub","catalyst","foundation","rfs","hackathon"), leads:["buildclub","nightsky"],
+};
+
+const PROGRAMS = {
+  academy:{nm:"Academy",ic:"book",st:"Live",dc:"Free, open curriculum → NFT certs",url:LINKS.academy.url},
+  zealy:{nm:"Zealy Sprints",ic:"bolt",st:"Live",dc:"Quests & XP for building",url:LINKS.zealy.url},
+  devhang:{nm:"Fireside Dev Hang",ic:"flame",st:"Live",dc:"Weekly live builder session",url:LINKS.devhang.url},
+  buildclub:{nm:"Build Club",ic:"hammer",st:"Live",dc:"Pre-seed: PoC → production",url:LINKS.buildclub.url},
+  nightsky:{nm:"Night Sky",ic:"moon",st:"Live",dc:"Revenue-stage accelerator",url:LINKS.nightsky.url},
+  aliit:{nm:"The Aliit",ic:"compass",st:"Live",dc:"Expert Compact fellowship",url:LINKS.aliit.url},
+};
+
+/* ---------------- COMPONENTS ---------------- */
+const LOGO = "data:image/png;base64,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";
+
+const srcLabel = (url) => {
+  try {
+    const h = new URL(url).hostname.replace(/^www\./,"");
+    if(h.includes("github.com")) return "Repo";
+    if(h.includes("docs.midnight")) return "Docs";
+    if(h.includes("academy.midnight")) return "Course";
+    if(h.includes("youtube")) return "Video";
+    if(h.includes("zealy")) return "Quests";
+    if(h.includes("vercel")) return "App";
+    return "Site";
+  } catch(e){ return "Site"; }
+};
+function ResourceLink({l}){
+  return (
+    <a className="rlink" href={l.url} target="_blank" rel="noopener noreferrer">
+      <div className="rlink-main">
+        <div className="a">{l.a}<span className="src">{srcLabel(l.url)}</span></div>
+        <div className="b">{l.b}</div>
+      </div>
+      <span className="arw"><Icon name="arrowRight" size={18} /></span>
+    </a>
+  );
+}
+
+function LeadChips({ids}){
+  if(!ids || !ids.length) return null;
+  return (
+    <div className="chips">
+      {ids.map(id => {
+        const p = PROGRAMS[id]; if(!p) return null;
+        return <a key={id} className="chip" href={p.url} target="_blank" rel="noopener noreferrer"><Icon name={p.ic} size={15} /> {p.nm}</a>;
+      })}
+    </div>
+  );
+}
+
+/* Full detail body reused by result panel + modal */
+function DetailBody({d}){
+  const groups = groupByStage(d.links);
+  const activeStages = STAGES.filter(s => groups[s].length);
+  return (
+    <div className="rc-body">
+      {d.map && (
+        <div className="know">
+          <span className="know-lbl">You already know this</span>
+          <div className="know-pairs">
+            {d.map.map((m,i)=>(
+              <span className="pair" key={i}><em>{m[0]}</em><Icon name="arrowRight" size={13} /><b>{m[1]}</b></span>
+            ))}
+          </div>
+        </div>
+      )}
+      {d.uc && (
+        <section className="dsec">
+          <p className="rc-sub">{d.tools ? "What you can build" : "Where to start"}</p>
+          <div className="uc-grid">
+            {d.uc.map((u,i)=>(
+              <div className="uc-card" key={i}><span className="uc-tick"><Icon name="check" size={13} /></span><span>{u}</span></div>
+            ))}
+          </div>
+        </section>
+      )}
+      {d.tools && (
+        <div className="toolpanel">
+          <span className="tp-ic"><Icon name="wrench" size={18} /></span>
+          <div><span className="tp-lbl">Tooling</span><p>{d.tools}</p></div>
+        </div>
+      )}
+      {activeStages.map((st,idx)=>(
+        <section className="dsec" key={st}>
+          <p className="rc-sub stage-head"><span className="stage-num">{idx+1}</span>{STAGE_LABEL[st]}</p>
+          <div className="links">{groups[st].map((l,i)=><ResourceLink key={i} l={l} />)}</div>
+        </section>
+      ))}
+      {d.leads && (
+        <section className="dsec">
+          <p className="rc-sub">Where this leads</p>
+          <LeadChips ids={d.leads} />
+        </section>
+      )}
+    </div>
+  );
+}
+
+function ResultCard({d}){
+  return (
+    <div className="result">
+      <div className="result-card">
+        <div className="rc-head">
+          <div className="ic"><Icon name={d.ic} size={26} /></div>
+          <h4>{d.ttl}</h4>
+          <p>{d.blurb}</p>
+        </div>
+        <DetailBody d={d} />
+      </div>
+    </div>
+  );
+}
+
+const DIMDATA = {ecosystem:ECOSYSTEMS, industry:INDUSTRIES, role:ROLES};
+const cleanTtl = (t)=>t.replace(/^Coming from /,"").replace(" on Midnight","").replace(" / other chains","");
+
+function PathFinder(){
+  const [start,setStart] = useState(null);
+  const [dim,setDim]   = useState(null);
+  const [pick,setPick] = useState(null);
+  const setAccent = React.useContext(AccentCtx);
+
+  const chooseStart = (id)=>{ setPick(null); setDim(null); setStart(id===start?null:id); };
+  const chooseDim   = (id)=>{ setPick(null); setDim(id); };
+
+  // resolve result
+  let result=null, options=null;
+  if(start==="new") result = BEGINNER;
+  else if(start==="deeper") result = DEEPER;
+  else if(start==="funding") result = FUNDING;
+  else if(start==="node") result = NODE;
+  else if(start==="experience" && dim){
+    const data = DIMDATA[dim];
+    options = Object.entries(data).map(([id,v])=>({id,ic:v.ic,ttl:cleanTtl(v.ttl)}));
+    if(pick) result = {...data[pick], id:pick};
+  }
+
+  const resultId = result ? result.id : null;
+  useEffect(()=>{
+    const a = resultId ? ACCENTS[resultId] : (start ? ACCENTS[start] : null);
+    setAccent(a || (start ? DEFAULT_ACCENT : null));
+  }, [resultId, start]);
+
+  return (
+    <div className="journey" id="journey">
+      <div className="journey-head">
+        <h2>Where are you in your journey?</h2>
+        {start && <button className="lnk" onClick={()=>chooseStart(null)} style={{display:"inline-flex",alignItems:"center",gap:6}}><Icon name="refresh" size={14} /> Reset</button>}
+      </div>
+      <div className="pills">
+        {START.map(o=>(
+          <button key={o.id} className={"pill btn"+(start===o.id?" on":"")} onClick={()=>chooseStart(o.id)}>
+            <span className="pill-ic"><Icon name={o.ic} size={18} /></span>
+            <span className="pill-tt">{o.ttl}</span>
+            <span className="pill-ds">{o.ds}</span>
+          </button>
+        ))}
+      </div>
+
+      {start==="experience" && (
+        <div className="dims">
+          <div className="dims-q"><span className="dims-step">Next</span> You've built before — which angle fits you best?</div>
+          <div className="dims-row">
+            {DIMENSIONS.map(o=>(
+              <button key={o.id} className={"dim btn"+(dim===o.id?" on":"")} onClick={()=>chooseDim(o.id)}>
+                <span className="dim-ic"><Icon name={o.ic} size={17} /></span>
+                <span className="dim-tx"><span className="dim-tt">{o.ttl}</span><span className="dim-ds">{o.ds}</span></span>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {options && (
+        <div className="opt-grid">
+          {options.map(o=>(
+            <button key={o.id} className={"opt2 btn"+(pick===o.id?" sel":"")} onClick={()=>setPick(o.id)}>
+              <span className="ic"><Icon name={o.ic} size={20} /></span>
+              <span className="ttl">{o.ttl}</span>
+            </button>
+          ))}
+        </div>
+      )}
+
+      {result && <ResultCard d={result} />}
+    </div>
+  );
+}
+
+function Modal({d,onClose}){
+  useEffect(()=>{
+    const h=(e)=>{if(e.key==="Escape")onClose();};
+    window.addEventListener("keydown",h);
+    document.body.style.overflow="hidden";
+    return ()=>{window.removeEventListener("keydown",h);document.body.style.overflow="";};
+  },[]);
+  return (
+    <div className="ov" onClick={onClose}>
+      <div className="modal" onClick={e=>e.stopPropagation()}>
+        <div className="modal-inner">
+          <button className="x btn" onClick={onClose} aria-label="Close"><Icon name="close" size={16} /></button>
+          <div className="rc-head" style={{borderRadius:"12px 12px 0 0"}}>
+            <div className="ic"><Icon name={d.ic} size={26} /></div>
+            <h4>{d.ttl}</h4>
+            <p>{d.blurb}</p>
+          </div>
+          <DetailBody d={d} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Explore(){
+  const [tab,setTab] = useState("ecosystem");
+  const [open,setOpen] = useState(null);
+  const setAccent = React.useContext(AccentCtx);
+  const SETS = {
+    ecosystem:{data:ECOSYSTEMS, sub:(v)=>v.blurb},
+    industry:{data:INDUSTRIES, sub:(v)=>v.blurb},
+    role:{data:ROLES, sub:(v)=>v.blurb},
+  };
+  const cur = SETS[tab];
+  const entries = Object.entries(cur.data);
+  const clean = (t)=>t.replace(/^Coming from /,"").replace(" on Midnight","");
+  return (
+    <div>
+      <div className="tabs-wrap">
+        <div className="tabs">
+          {[["ecosystem","By ecosystem"],["industry","By industry"],["role","By role"]].map(([k,lbl])=>(
+            <button key={k} className={"tab btn"+(tab===k?" on":"")} onClick={()=>setTab(k)}>{lbl}</button>
+          ))}
+        </div>
+      </div>
+      <div className="cards">
+        {entries.map(([id,v])=>(
+          <button key={id} className="card btn" onClick={()=>{ setOpen({...v,id}); setAccent(ACCENTS[id]||DEFAULT_ACCENT); }}>
+            <div className="ic"><Icon name={v.ic} size={24} /></div>
+            <h3>{clean(v.ttl)}</h3>
+            <p>{v.blurb.length>96?v.blurb.slice(0,94)+"…":v.blurb}</p>
+            <div className="more">See tooling &amp; paths <Icon name="arrowRight" size={15} /></div>
+          </button>
+        ))}
+      </div>
+      {open && <Modal d={{...open, ttl:open.ttl}} onClose={()=>{ setOpen(null); setAccent(null); }} />}
+    </div>
+  );
+}
+
+function Programs(){
+  const stages = ["Discover","Learn","Build","Ship","Deepen","Partner"];
+  const all = [
+    {...PROGRAMS.academy}, {...PROGRAMS.zealy}, {...PROGRAMS.devhang},
+    {...PROGRAMS.aliit}, {...PROGRAMS.buildclub}, {...PROGRAMS.nightsky},
+    {nm:"Content Bounties",ic:"pen",st:"Live",dc:"Get paid to teach & explain",url:LINKS.contrib.url},
+    {nm:"Request for Startups",ic:"lightbulb",st:"Live",dc:"Vetted build prompts by vertical",url:LINKS.rfs.url},
+  ];
+  return (
+    <div className="spiral">
+      <div className="flow">
+        {stages.map((s,i)=>(
+          <React.Fragment key={s}>
+            <span className="stage">{s}</span>
+            {i<stages.length-1 && <span className="ar"><Icon name="arrowRight" size={15} /></span>}
+          </React.Fragment>
+        ))}
+      </div>
+      <div className="prog-grid">
+        {all.map((p,i)=>(
+          <a key={i} className="prog" href={p.url} target="_blank" rel="noopener noreferrer">
+            <div className="nm"><Icon name={p.ic} size={18} /> {p.nm} <span className={"st"+(p.st!=="Live"?" prop":"")}>{p.st}</span></div>
+            <div className="dc">{p.dc}</div>
+          </a>
+        ))}
+      </div>
+      <div className="ship">
+        <p className="ship-h">Ready to ship? Deploy to preprod and verify on-chain.</p>
+        <div className="chips" style={{justifyContent:"center",marginTop:0}}>
+          <a className="chip" href={LINKS.faucet.url} target="_blank" rel="noopener noreferrer"><Icon name="coins" size={15} /> Preprod faucet</a>
+          <a className="chip" href={LINKS.explorer.url} target="_blank" rel="noopener noreferrer"><Icon name="blocks" size={15} /> Preprod explorer</a>
+          <a className="chip" href={LINKS.networks.url} target="_blank" rel="noopener noreferrer"><Icon name="layers" size={15} /> Networks &amp; endpoints</a>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function XArt(){
+  return (
+    <svg className="xart" viewBox="0 0 240 210" fill="none" stroke="var(--accent)" strokeWidth="1.2" strokeLinejoin="round" aria-hidden="true">
+      <rect x="40" y="35" width="96" height="96" transform="rotate(45 88 83)"/>
+      <rect x="104" y="35" width="96" height="96" transform="rotate(45 152 83)"/>
+      <rect x="72" y="79" width="96" height="96" transform="rotate(45 120 127)" opacity=".55"/>
+      <circle cx="120" cy="105" r="3" fill="var(--accent)" stroke="none"/>
+    </svg>
+  );
+}
+
+function App(){
+  const [accent,setAccent] = useState(null);
+  useEffect(()=>{ document.documentElement.style.setProperty("--accent", accent||DEFAULT_ACCENT); },[accent]);
+  return (
+    <AccentCtx.Provider value={setAccent}>
+      <Backdrop accent={accent} />
+      <header className="site">
+        <div className="wrap hd">
+          <a href="https://midnight.network" className="brand"><img src={LOGO} alt="Midnight" /></a>
+          <nav>
+            <a href="https://midnight.network/network">Network</a>
+            <a className="on" href="https://midnight.network/developer-hub">Developers</a>
+            <a href="https://midnight.network/ecosystem">Ecosystem</a>
+            <a href="https://midnight.network/community">Community</a>
+            <a href="https://midnight.network/blog">Insights</a>
+            <a href="https://midnight.network/social">Social</a>
+            <a className="navcta" href="https://midnight.network/night" target="_blank" rel="noopener noreferrer">NIGHT</a>
+          </nav>
+        </div>
+      </header>
+      <div className="subnav">
+        <div className="wrap">
+          <span className="lbl">Jump to</span>
+          <a href="#finder">Find your path</a>
+          <a href="#explore">Explore</a>
+          <a href="#programs">Programs</a>
+          <a href={LINKS.academy.url} target="_blank" rel="noopener noreferrer">Academy ↗</a>
+          <a href={LINKS.faucet.url} target="_blank" rel="noopener noreferrer">Faucet ↗</a>
+          <a href="https://github.com/midnightntwrk" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+        </div>
+      </div>
+
+      <section className="hero">
+        <div className="wrap hero-grid">
+          <div className="hero-copy">
+            <h1 className="big">Developer Hub</h1>
+            <p className="lede">Everything you need to engineer privacy on Midnight — from your first line of code to production. Tell us where you are, and we'll hand you the exact repos, docs, and programs for your path.</p>
+          </div>
+          <div className="hero-art"><XArt /></div>
+        </div>
+      </section>
+
+      <section className="blk journey-sec" id="finder" style={{paddingTop:14}}>
+        <div className="wrap">
+          <PathFinder />
+        </div>
+      </section>
+
+      <section className="blk" id="explore">
+        <div className="wrap">
+          <div className="sec-h">
+            <span className="kick">Or browse it yourself</span>
+            <h2>Explore by ecosystem, industry & role</h2>
+            <p>Pick any tile to see why Midnight fits, what you can build, and every tool and resource on that path.</p>
+          </div>
+          <Explore />
+        </div>
+      </section>
+
+      <section className="blk" id="programs" style={{paddingTop:0}}>
+        <div className="wrap">
+          <div className="sec-h">
+            <span className="kick">The developer spiral</span>
+            <h2>Where every path leads</h2>
+            <p>Enter anywhere and spiral deeper — discover, learn, build, ship, then plug into the programs that keep you going.</p>
+          </div>
+          <Programs />
+        </div>
+      </section>
+
+      <footer className="site">
+        <div className="wrap">
+          <div className="foot-top">
+            <div className="foot-brand">
+              <img src={LOGO} alt="Midnight" />
+              <p>The data-protection blockchain. Build privacy-first apps with programmable confidentiality.</p>
+              <div className="foot-social">
+                <a href="https://github.com/midnightntwrk" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><Icon name="github" size={19} /></a>
+                <a href="https://twitter.com/MidnightNtwrk" target="_blank" rel="noopener noreferrer" aria-label="X"><Icon name="xcom" size={17} /></a>
+                <a href="https://discord.gg/midnightnetwork" target="_blank" rel="noopener noreferrer" aria-label="Discord"><Icon name="discord" size={19} /></a>
+                <a href="https://www.youtube.com/@midnight.network" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><Icon name="youtube" size={19} /></a>
+              </div>
+            </div>
+            <div className="foot-cols">
+              {[
+                {h:"Developers", items:[["Developer hub","#finder"],["Docs",LINKS.compact.url.replace("/compact","")],["Aliit fellowship",LINKS.aliit.url],["Preprod faucet",LINKS.faucet.url],["Compact playground",LINKS.playground.url]]},
+                {h:"Ecosystem", items:[["Ecosystem hub",LINKS.ecosystem.url],["Ecosystem catalog",LINKS.catalog.url],["Midnight City",LINKS.city.url],["Build Club",LINKS.buildclub.url],["Request for Startups",LINKS.rfs.url]]},
+                {h:"Learn & build", items:[["Academy",LINKS.academy.url],["Awesome dApps",LINKS.awesomeList.url],["Community tools",LINKS.community.url],["Hackathons",LINKS.hackathon.url],["Prompt library",LINKS.prompts.url]]},
+                {h:"Insights", items:[["Blog",LINKS.blog.url],["Improvement proposals",LINKS.mips.url],["Developer forum",LINKS.forum.url],["Midnight Foundation",LINKS.foundation.url]]},
+              ].map(col=>(
+                <div className="foot-col" key={col.h}>
+                  <span className="foot-h">{col.h}</span>
+                  {col.items.map(([label,href])=>(
+                    <a key={label} href={href} target={href.startsWith("#")?undefined:"_blank"} rel="noopener noreferrer">{label}</a>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="foot-bottom">
+            <span>© Midnight · Developer Hub</span>
+            <span className="foot-note">Guided onboarding — every link points to the most specific docs page, example repo, or program for that path.</span>
+          </div>
+        </div>
+      </footer>
+    </AccentCtx.Provider>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>
