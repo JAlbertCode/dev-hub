@@ -182,6 +182,9 @@
   .flow{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px;margin-bottom:28px}
   .stage{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);background:var(--card);border:1px solid var(--border);border-radius:6px;padding:7px 14px}
   .flow .ar{color:var(--blue-2);display:grid;place-items:center}
+  .pgroup{margin-bottom:24px}
+  .pgroup:last-of-type{margin-bottom:0}
+  .pgroup-h{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--blue-2);margin-bottom:12px}
   .prog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
   .prog{display:block;text-decoration:none;background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:16px 17px;transition:transform .16s var(--ease),box-shadow .16s var(--ease),border-color .16s var(--ease)}
   .prog:hover{border-color:var(--accent);transform:translateY(-3px)}
@@ -409,7 +412,7 @@ const LINKS = {
   scaffold: {a:"create-mn-app", b:"Scaffolds contract + CLI + wallet, prewired", url:"https://github.com/midnightntwrk/create-mn-app"},
   hello:    {a:"Hello World tutorial", b:"Your first Compact contract, deployed", url:"https://docs.midnight.network/getting-started/hello-world"},
   acquireTokens:{a:"Acquire tokens & register DUST", b:"Fund a wallet with tNIGHT & register DUST", url:"https://docs.midnight.network/guides/acquire-tokens", tag:"official"},
-  zealy:    {a:"Earn while you learn (Zealy)", b:"Builder quests, XP, and rewards", url:"https://zealy.io/cw/midnightnetwork"},
+  zealy:    {a:"Zealy builder quests", b:"Quests and XP as you learn", url:"https://zealy.io/cw/midnightnetwork"},
 
   // Compact language & concepts
   compact:  {a:"Compact language", b:"The smart-contract language for private logic", url:"https://docs.midnight.network/compact"},
@@ -499,7 +502,7 @@ const LINKS = {
   blog:     {a:"Dev diaries & blog", b:"How the network is being built, in the open", url:"https://midnight.network/blog"},
   forum:    {a:"Developer forum", b:"Ask questions & compare notes with builders", url:"https://forum.midnight.network"},
   devhang:  {a:"Fireside Dev Hang", b:"Weekly live builder session on YouTube", url:"https://www.youtube.com/@midnight.network"},
-  contrib:  {a:"Contributor Hub & content bounties", b:"Get paid to write, record, and explain", url:"https://midnight.network/blog"},
+  firesideApply:{a:"Present on Fireside Dev Hang", b:"Apply to demo your build live on the stream", url:"https://share.hsforms.com/1Ts4ombCFRLWwH723RZ6_bgqtj5y", tag:"official"},
   discord:  {a:"Discord (#dev-chat)", b:"Join #dev-chat and get unstuck fast", url:"https://discord.com/invite/midnightnetwork", tag:"official"},
   telegram: {a:"Telegram", b:"The official Midnight Telegram", url:"https://t.me/Midnight_Network_Official", tag:"official"},
   twitter:  {a:"X / Twitter", b:"Follow @MidnightNtwrk for updates", url:"https://x.com/MidnightNtwrk", tag:"official"},
@@ -563,14 +566,14 @@ const STAGE = {
   // Grow
   rfs:"grow", aliit:"grow", nightsky:"grow", buildclub:"grow",
   foundation:"grow", zealy:"grow", devhang:"grow", blog:"grow", forum:"grow",
-  contrib:"grow", awesome:"grow", city:"grow", mips:"grow", hackathon:"grow",
+  awesome:"grow", city:"grow", mips:"grow", hackathon:"grow",
   ideaboard:"learn",
   // batch 2
   nightpaper:"learn", kachina:"learn", tokenomics:"learn", learnCompact:"learn", compactByExample:"learn",
   vscodeExtension:"build", proofServer:"build", testingGuide:"build", supportMatrix:"build", nodeOperators:"build",
   fixVersions:"build", compilerErrors:"build", nodeErrorCodes:"build", meshMidnight:"build", compactLsp:"build", midnightDoctor:"build",
   acquireTokens:"ship", subscanExplorer:"ship", explorer1am:"ship",
-  discord:"grow", telegram:"grow", twitter:"grow", nightforce:"grow",
+  discord:"grow", telegram:"grow", twitter:"grow", nightforce:"grow", firesideApply:"grow",
   passport:"build", passportDocs:"build", passportTemplate:"build", passportRaffle:"build", passportHub:"grow",
 };
 const STAGES = ["learn","build","ship","grow"];
@@ -649,9 +652,9 @@ const ECOSYSTEMS = {
     uc:["Add private state to an existing app","Cross-chain private messaging & value","Compliant, privacy-preserving payments","Confidential data marketplaces"],
     links: P("effect","viaBridge","effectEvm","compact","catalog"), leads:["academy","zealy","buildclub"]},
   student:{ic:"cap", ttl:"New to Web3 / student",
-    blurb:"No prior chain experience needed. Start at the Academy, earn XP on Zealy as you go, and a completed cert plus a shipped project becomes a real portfolio credential.",
+    blurb:"No prior chain experience needed. Start at the Academy, level up on Zealy as you go, and a completed cert plus a shipped project becomes a real portfolio credential.",
     map:null,
-    uc:["Learn ZK & privacy from zero","Build a portfolio-worthy dApp","Earn certs that unlock bounties","Join a university club pathway"],
+    uc:["Learn ZK & privacy from zero","Build a portfolio-worthy dApp","Complete Academy certificates","Join a university club pathway"],
     links: P("academy","zealy","learnCompact","install","hello","discord"), leads:["academy","zealy","buildclub"]},
 };
 
@@ -693,7 +696,7 @@ const INDUSTRIES = {
     links: P("exElection","privacyPatterns","compact","community","rfs"), leads:["academy","buildclub"]},
   nfts:{ic:"image", ttl:"NFTs & ownership on Midnight",
     blurb:"Own things privately. Prove you hold an asset to unlock gated content or vote, without publishing your wallet's whole collection.",
-    uc:["Private ownership & token-gating","Sealed-bid NFT auctions","Confidential royalties","Anonymous holder rewards"],
+    uc:["Private ownership & token-gating","Sealed-bid NFT auctions","Confidential royalties","Anonymous holder benefits"],
     tools:"Compact · Midnight.js · Examples",
     links: P("exKitties","sealedbid","oz","compact","awesomeList"), leads:["academy","zealy"]},
   ip:{ic:"sparkle", ttl:"IP & creators on Midnight",
@@ -711,7 +714,7 @@ const INDUSTRIES = {
 const ROLES = {
   smartcontract:{ic:"scroll", ttl:"Smart-contract developer",
     blurb:"Compact is where you'll live: it is the language for private, provable logic. Start with the concepts, fork the examples, and grow toward the Aliit fellowship.",
-    uc:["Learn Compact & the ZK model","Fork reference contracts","Write & test shielded logic","Progress to exclusive Aliit bounties"],
+    uc:["Learn Compact & the ZK model","Fork reference contracts","Write & test shielded logic","Grow into the Aliit fellowship"],
     tools:"Compact · proof server · local dev environment",
     links: P("writing","vscodeExtension","compactLsp","playground","compactRef","testingGuide","oz","compilerErrors","aliit"), leads:["academy","zealy","buildclub"]},
   frontend:{ic:"layout", ttl:"Front-end / dApp developer",
@@ -732,7 +735,7 @@ const ROLES = {
   security:{ic:"shield", ttl:"Security reviewer / auditor",
     blurb:"Early teams need affordable review; auditors need deal flow. Build a track record through the audit program and the Aliit's technical testing pipeline.",
     uc:["Claim mini-reviews for early teams","Build an on-platform track record","Feature-test ecosystem tooling","Qualify for higher-value work"],
-    tools:"Contributor Hub · audit program (proposed) · the Aliit",
+    tools:"Security best practices · midnight-zk toolkit · the Aliit",
     links: P("security","disclosure","testingGuide","midnightzk","community","aliit"), leads:["buildclub","nightsky"]},
   founder:{ic:"rocket", ttl:"Founder / team",
     blurb:"Got an idea and a small team? Build Club takes you from proof of concept toward production with guidance and the right intros, then Night Sky for the strongest. Need hands? Midnight Expert connects you with vetted builders.",
@@ -740,20 +743,20 @@ const ROLES = {
     tools:"Build Club · Night Sky · Request for Startups · Midnight Expert (hire builders)",
     links: P("rfs","buildclub","nightsky","expert","foundation"), leads:["buildclub","nightsky"]},
   student:{ic:"cap", ttl:"Student / club member",
-    blurb:"Academy plus a shipped project is a concrete portfolio credential, and the entry to bounties and Build Club. Clubs get a dedicated pathway and co-marketing.",
-    uc:["Free, open Academy from zero","Earn XP & certs on Zealy","Ship a portfolio-worthy dApp","Bring a mini-hack to your club"],
+    blurb:"Academy plus a shipped project is a concrete portfolio credential, and the entry to Build Club and the wider community. Clubs get a dedicated pathway and co-marketing.",
+    uc:["Free, open Academy from zero","Practice with Zealy quests","Ship a portfolio-worthy dApp","Bring a mini-hack to your club"],
     tools:"Academy · Zealy · university program",
     links: P("academy","zealy","learnCompact","ideaboard","telegram","discord"), leads:["academy","zealy","buildclub"]},
   content:{ic:"pen", ttl:"Content creator / educator",
-    blurb:"Turn what you learn into tutorials, videos, and threads, then get paid for it. Content bounties are matched, and top pieces get amplified and folded into the Academy.",
-    uc:["Claim matched content bounties","Publish tutorials & walkthroughs","Present on the Dev Hang stream","Contribute to the Academy"],
-    tools:"Contributor Hub · content bounties · Fireside Dev Hang",
-    links: P("contrib","nightforce","twitter","devhang","discord","academy"), leads:["academy","zealy"]},
+    blurb:"Turn what you learn into tutorials, videos, and threads. Present live on the Fireside stream, grow as a Nightforce ambassador, and see top pieces amplified and folded into the Academy.",
+    uc:["Publish tutorials & walkthroughs","Present live on the Fireside stream","Grow as a Nightforce ambassador","Contribute to the Academy"],
+    tools:"Fireside Dev Hang · Nightforce · Academy",
+    links: P("firesideApply","nightforce","twitter","devhang","discord","academy"), leads:["academy","zealy"]},
 };
 
 const DEEPER = {
   id:"deeper", ic:"rocket", ttl:"Go deeper on Midnight",
-  blurb:"You've shipped the basics, so now master the internals. Go deep on Compact's disclosure model, the zero-knowledge machinery, the cryptography toolkit, and hardening, then earn a place in the Aliit.",
+  blurb:"You've shipped the basics, so now master the internals. Go deep on Compact's disclosure model, the zero-knowledge machinery, the cryptography toolkit, and hardening, then apply to join the Aliit.",
   uc:["Master Compact & explicit disclosure","Understand ZK proofs & Kachina","Study production example contracts","Harden contracts with security patterns","Define standards in the Aliit fellowship"],
   tools:"Compact reference · midnight-zk toolkit · concepts & Kachina · security best practices",
   links: P("compactRef","kachina","nightpaper","concepts","privacyPatterns","midnightzk","tokenomics","aliit"),
@@ -771,17 +774,17 @@ const NODE = {
 const FUNDING = {
   id:"funding", ic:"coins", ttl:"Fund your build on Midnight",
   blurb:"Whether you need a small PoC grant or a full accelerator with investment, there's a track for your stage. Programs are designed to build on each other.",
-  uc:["Open-source grants & bounties","Pre-seed accelerator support (Build Club)","Revenue-stage cohort (Night Sky)","Foundation-backed program funding"],
+  uc:["Open-source project grants","Pre-seed accelerator support (Build Club)","Revenue-stage cohort (Night Sky)","Foundation-backed program funding"],
   links: P("buildclub","foundation","rfs","hackathon","passportHub"), leads:["buildclub","nightsky"],
 };
 
 const PROGRAMS = {
-  academy:{nm:"Academy",ic:"book",st:"Live",dc:"Free, open curriculum → NFT certs",url:LINKS.academy.url},
-  zealy:{nm:"Zealy Sprints",ic:"bolt",st:"Live",dc:"Quests & XP for building",url:LINKS.zealy.url},
-  devhang:{nm:"Fireside Dev Hang",ic:"flame",st:"Live",dc:"Weekly live builder session",url:LINKS.devhang.url},
-  buildclub:{nm:"Build Club",ic:"hammer",st:"Live",dc:"Pre-seed: PoC → production",url:LINKS.buildclub.url},
-  nightsky:{nm:"Night Sky",ic:"moon",st:"Live",dc:"Revenue-stage accelerator",url:LINKS.nightsky.url},
-  aliit:{nm:"The Aliit",ic:"compass",st:"Live",dc:"Expert Compact fellowship",url:LINKS.aliit.url},
+  academy:{nm:"Academy",ic:"book",dc:"Free, hands-on courses with certs",url:LINKS.academy.url},
+  zealy:{nm:"Zealy Sprints",ic:"bolt",dc:"Quests and XP as you build",url:LINKS.zealy.url},
+  devhang:{nm:"Fireside Dev Hang",ic:"flame",dc:"Weekly live session with the team",url:LINKS.devhang.url},
+  buildclub:{nm:"Build Club",ic:"hammer",dc:"Take a proof of concept to production",url:LINKS.buildclub.url},
+  nightsky:{nm:"Night Sky",ic:"moon",dc:"Scale a live product with support",url:LINKS.nightsky.url},
+  aliit:{nm:"The Aliit",ic:"compass",dc:"Shape standards as an expert Fellow",url:LINKS.aliit.url},
 };
 
 /* ---------------- COMPONENTS ---------------- */
@@ -1038,31 +1041,28 @@ function Explore(){
 }
 
 function Programs(){
-  const stages = ["Discover","Learn","Build","Ship","Deepen","Partner"];
-  const all = [
-    {...PROGRAMS.academy}, {...PROGRAMS.zealy}, {...PROGRAMS.devhang},
-    {...PROGRAMS.aliit}, {...PROGRAMS.buildclub}, {...PROGRAMS.nightsky},
-    {nm:"Content Bounties",ic:"pen",st:"Live",dc:"Get paid to teach & explain",url:LINKS.contrib.url},
-    {nm:"Request for Startups",ic:"lightbulb",st:"Live",dc:"Vetted build prompts by vertical",url:LINKS.rfs.url},
+  const groups = [
+    {h:"Learn & practice", items:[PROGRAMS.academy, PROGRAMS.zealy, PROGRAMS.devhang]},
+    {h:"Funding & accelerators", items:[PROGRAMS.buildclub, PROGRAMS.nightsky,
+      {nm:"Request for Startups",ic:"lightbulb",dc:"Vetted ideas to build, by vertical",url:LINKS.rfs.url}]},
+    {h:"Contribute", items:[PROGRAMS.aliit,
+      {nm:"Present on Fireside",ic:"flame",dc:"Apply to demo your build on the stream",url:LINKS.firesideApply.url}]},
   ];
   return (
     <div className="spiral">
-      <div className="flow">
-        {stages.map((s,i)=>(
-          <React.Fragment key={s}>
-            <span className="stage">{s}</span>
-            {i<stages.length-1 && <span className="ar"><Icon name="arrowRight" size={15} /></span>}
-          </React.Fragment>
-        ))}
-      </div>
-      <div className="prog-grid">
-        {all.map((p,i)=>(
-          <a key={i} className="prog" href={p.url} target="_blank" rel="noopener noreferrer">
-            <div className="nm"><Icon name={p.ic} size={18} /> {p.nm} <span className={"st"+(p.st!=="Live"?" prop":"")}>{p.st}</span></div>
-            <div className="dc">{p.dc}</div>
-          </a>
-        ))}
-      </div>
+      {groups.map(g=>(
+        <div className="pgroup" key={g.h}>
+          <div className="pgroup-h">{g.h}</div>
+          <div className="prog-grid">
+            {g.items.map((p,i)=>(
+              <a key={i} className="prog" href={p.url} target="_blank" rel="noopener noreferrer">
+                <div className="nm"><Icon name={p.ic} size={18} /> {p.nm}</div>
+                <div className="dc">{p.dc}</div>
+              </a>
+            ))}
+          </div>
+        </div>
+      ))}
       <div className="ship">
         <p className="ship-h">Ready to ship? Deploy to preprod and verify on-chain.</p>
         <div className="chips" style={{justifyContent:"center",marginTop:0}}>
@@ -1148,9 +1148,9 @@ function App(){
       <section className="blk" id="programs" style={{paddingTop:0}}>
         <div className="wrap">
           <div className="sec-h">
-            <span className="kick">The developer spiral</span>
-            <h2>Where every path leads</h2>
-            <p>Enter anywhere and spiral deeper: discover, learn, build, ship, then plug into the programs that keep you going.</p>
+            <span className="kick">Programs &amp; community</span>
+            <h2>Keep building with Midnight</h2>
+            <p>Free courses, weekly sessions, accelerators, and grants, so you're supported from your first contract to a launched product.</p>
           </div>
           <Programs />
         </div>
